@@ -4,8 +4,54 @@ const lightboxCaption = document.querySelector("#lightbox-caption");
 const closeButton = document.querySelector(".lightbox-close");
 const photoButtons = document.querySelectorAll(".photo-button");
 const workCards = document.querySelectorAll(".work-card");
+const menu = document.querySelector("[data-menu]");
+const menuToggle = document.querySelector(".menu-toggle");
+const navLinks = document.querySelector(".nav-links");
+const navItems = document.querySelectorAll(".nav-links a");
 
 let lastFocusedElement = null;
+
+function setMenuOpen(isOpen) {
+  if (!menu || !menuToggle || !navLinks) {
+    return;
+  }
+
+  menu.classList.toggle("is-open", isOpen);
+  menuToggle.setAttribute("aria-expanded", String(isOpen));
+  menuToggle.textContent = isOpen ? "Close" : "Menu";
+  navLinks.setAttribute("aria-hidden", String(!isOpen));
+}
+
+function closeMenu() {
+  setMenuOpen(false);
+}
+
+if (menu && menuToggle && navLinks) {
+  menuToggle.addEventListener("click", () => {
+    setMenuOpen(!menu.classList.contains("is-open"));
+  });
+
+  navItems.forEach((item) => {
+    item.addEventListener("click", (event) => {
+      const target = document.querySelector(item.getAttribute("href"));
+
+      if (!target) {
+        return;
+      }
+
+      event.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      closeMenu();
+      history.pushState(null, "", item.getAttribute("href"));
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (menu.classList.contains("is-open") && !menu.contains(event.target)) {
+      closeMenu();
+    }
+  });
+}
 
 function openLightbox(button) {
   const image = button.querySelector("img");
@@ -47,8 +93,17 @@ lightbox.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && lightbox.classList.contains("is-open")) {
+  if (event.key !== "Escape") {
+    return;
+  }
+
+  if (lightbox.classList.contains("is-open")) {
     closeLightbox();
+    return;
+  }
+
+  if (menu && menu.classList.contains("is-open")) {
+    closeMenu();
   }
 });
 
