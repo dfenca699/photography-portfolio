@@ -3,6 +3,7 @@ const lightboxImage = document.querySelector("#lightbox-image");
 const lightboxCaption = document.querySelector("#lightbox-caption");
 const closeButton = document.querySelector(".lightbox-close");
 const photoButtons = document.querySelectorAll(".photo-button");
+const workCards = document.querySelectorAll(".work-card");
 
 let lastFocusedElement = null;
 
@@ -50,3 +51,21 @@ document.addEventListener("keydown", (event) => {
     closeLightbox();
   }
 });
+
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  workCards.forEach((card) => observer.observe(card));
+} else {
+  workCards.forEach((card) => card.classList.add("is-visible"));
+}

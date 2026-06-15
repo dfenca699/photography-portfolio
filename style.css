@@ -1,15 +1,17 @@
-/* 基础变量：以后改颜色、字体和间距，优先改这里。 */
+/* Base variables: change colors, type, and spacing here first. */
 :root {
-  --color-page: #f7f7f5;
-  --color-paper: #ffffff;
-  --color-ink: #161616;
-  --color-muted: #6f6f6c;
-  --color-line: #deded8;
-  --color-overlay: rgba(12, 12, 12, 0.82);
+  --color-page: #f4f3ef;
+  --color-paper: #fbfaf7;
+  --color-ink: #151512;
+  --color-muted: #737168;
+  --color-soft: #a8a49a;
+  --color-line: #d8d5cc;
+  --color-overlay: rgba(11, 11, 10, 0.88);
   --font-main: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Arial, sans-serif;
-  --side-space: clamp(20px, 6vw, 88px);
-  --section-space: clamp(84px, 12vw, 160px);
+  --side-space: clamp(22px, 7vw, 124px);
+  --section-space: clamp(104px, 14vw, 196px);
+  --gallery-gap: clamp(22px, 3.4vw, 48px);
 }
 
 * {
@@ -25,6 +27,7 @@ body {
   background: var(--color-page);
   color: var(--color-ink);
   font-family: var(--font-main);
+  line-height: 1.5;
   text-rendering: optimizeLegibility;
 }
 
@@ -50,15 +53,15 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 22px var(--side-space);
-  background: rgba(247, 247, 245, 0.9);
-  border-bottom: 1px solid rgba(222, 222, 216, 0.72);
-  backdrop-filter: blur(18px);
+  padding: 24px var(--side-space);
+  background: rgba(244, 243, 239, 0.82);
+  border-bottom: 1px solid rgba(216, 213, 204, 0.58);
+  backdrop-filter: blur(22px);
 }
 
 .brand {
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.86rem;
+  font-weight: 500;
   letter-spacing: 0;
 }
 
@@ -67,7 +70,7 @@ button {
   align-items: center;
   gap: clamp(16px, 3vw, 34px);
   color: var(--color-muted);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
 }
 
 .site-nav a {
@@ -82,40 +85,40 @@ button {
 }
 
 .hero {
-  min-height: 76svh;
+  min-height: 86svh;
   display: grid;
-  align-items: center;
-  padding: clamp(80px, 12vw, 132px) var(--side-space) clamp(52px, 8vw, 92px);
+  align-items: end;
+  padding: clamp(94px, 13vw, 148px) var(--side-space) clamp(72px, 10vw, 124px);
 }
 
 .hero-inner {
-  width: min(980px, 100%);
+  width: min(1120px, 100%);
 }
 
 .eyebrow {
   margin: 0 0 18px;
   color: var(--color-muted);
   font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
 .hero h1 {
-  max-width: 980px;
+  max-width: 1120px;
   margin: 0;
-  font-size: clamp(4.4rem, 15vw, 12rem);
-  font-weight: 500;
-  line-height: 0.9;
+  font-size: clamp(4.2rem, 14vw, 13.5rem);
+  font-weight: 420;
+  line-height: 0.84;
   letter-spacing: 0;
 }
 
 .hero-line {
   max-width: 620px;
-  margin: 28px 0 0;
+  margin: clamp(24px, 4vw, 42px) 0 0;
   color: var(--color-muted);
-  font-size: clamp(1rem, 2vw, 1.35rem);
-  line-height: 1.7;
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  line-height: 1.9;
 }
 
 .section {
@@ -123,34 +126,44 @@ button {
 }
 
 .works-section {
-  padding-top: clamp(28px, 6vw, 72px);
+  padding-top: clamp(40px, 7vw, 96px);
 }
 
 .section-heading {
   display: grid;
-  grid-template-columns: minmax(110px, 0.26fr) minmax(0, 0.74fr);
-  gap: clamp(22px, 5vw, 80px);
-  margin-bottom: clamp(34px, 6vw, 72px);
+  grid-template-columns: minmax(120px, 0.24fr) minmax(0, 0.76fr);
+  gap: clamp(24px, 6vw, 96px);
+  margin-bottom: clamp(46px, 8vw, 104px);
 }
 
 .section-heading h2 {
   max-width: 760px;
   margin: 0;
-  font-size: clamp(2rem, 5vw, 5rem);
-  font-weight: 500;
-  line-height: 1;
+  font-size: clamp(2.35rem, 5.4vw, 5.8rem);
+  font-weight: 420;
+  line-height: 0.98;
   letter-spacing: 0;
 }
 
-/* 作品网格：使用 CSS columns 做轻量 masonry 效果。 */
+/* Gallery: CSS columns keep a natural masonry rhythm without extra scripts. */
 .gallery {
   column-count: 3;
-  column-gap: clamp(16px, 2.5vw, 32px);
+  column-gap: var(--gallery-gap);
+  max-width: 1480px;
+  margin: 0 auto;
 }
 
 .work-card {
   break-inside: avoid;
-  margin: 0 0 clamp(28px, 4vw, 48px);
+  margin: 0 0 var(--gallery-gap);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 520ms ease, transform 520ms ease;
+}
+
+.work-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .photo-button {
@@ -158,20 +171,23 @@ button {
   padding: 0;
   overflow: hidden;
   cursor: zoom-in;
-  background: #e5e5e0;
+  background: #e2dfd7;
   border: 0;
+  box-shadow: 0 18px 44px rgba(20, 20, 18, 0.04);
 }
 
 .photo-button img {
   width: 100%;
   height: auto;
-  transition: transform 280ms ease, opacity 280ms ease;
+  filter: saturate(0.94) contrast(1.02);
+  transition: transform 360ms ease, opacity 260ms ease, filter 360ms ease;
 }
 
 .photo-button:hover img,
 .photo-button:focus-visible img {
-  opacity: 0.9;
-  transform: scale(1.018);
+  opacity: 0.94;
+  filter: saturate(1) contrast(1.04);
+  transform: scale(1.015);
 }
 
 .photo-button:focus-visible,
@@ -184,21 +200,21 @@ button {
   display: flex;
   justify-content: space-between;
   gap: 18px;
-  margin-top: 12px;
-  color: var(--color-muted);
-  font-size: 0.78rem;
+  margin-top: 14px;
+  color: var(--color-soft);
+  font-size: 0.74rem;
 }
 
 .work-card figcaption span {
-  color: var(--color-ink);
+  color: #45443f;
 }
 
 .text-block {
-  width: min(760px, 100%);
+  width: min(720px, 100%);
   margin-left: auto;
-  color: var(--color-muted);
-  font-size: clamp(1.05rem, 2vw, 1.28rem);
-  line-height: 1.85;
+  color: #55534c;
+  font-size: clamp(1.08rem, 1.8vw, 1.32rem);
+  line-height: 2;
 }
 
 .text-block p {
@@ -206,7 +222,7 @@ button {
 }
 
 .text-block p + p {
-  margin-top: 22px;
+  margin-top: 28px;
 }
 
 .contact-section {
@@ -217,9 +233,9 @@ button {
   width: min(760px, 100%);
   margin-left: auto;
   display: grid;
-  gap: 18px;
+  gap: 20px;
   color: var(--color-muted);
-  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-size: clamp(1.16rem, 2.7vw, 1.86rem);
 }
 
 .contact-links a {
@@ -229,7 +245,7 @@ button {
 }
 
 .site-footer {
-  padding: 34px var(--side-space) 44px;
+  padding: 38px var(--side-space) 52px;
   color: var(--color-muted);
   font-size: 0.82rem;
   border-top: 1px solid var(--color-line);
@@ -245,7 +261,7 @@ button {
   z-index: 100;
   display: none;
   place-items: center;
-  padding: clamp(18px, 4vw, 44px);
+  padding: clamp(16px, 4vw, 48px);
 }
 
 .lightbox.is-open {
@@ -261,12 +277,12 @@ button {
 .lightbox-content {
   position: relative;
   z-index: 1;
-  width: min(1080px, 100%);
+  width: min(1180px, 100%);
   margin: 0;
 }
 
 .lightbox-content img {
-  max-height: 82svh;
+  max-height: 84svh;
   margin: 0 auto;
   object-fit: contain;
   background: #111111;
@@ -275,7 +291,7 @@ button {
 .lightbox-content figcaption {
   margin-top: 14px;
   color: #f4f4f0;
-  font-size: 0.88rem;
+  font-size: 0.82rem;
 }
 
 .lightbox-close {
@@ -292,6 +308,12 @@ button {
   border-radius: 50%;
   font-size: 1.5rem;
   line-height: 1;
+  transition: background 180ms ease, border-color 180ms ease;
+}
+
+.lightbox-close:hover {
+  background: rgba(244, 244, 240, 0.08);
+  border-color: rgba(244, 244, 240, 0.72);
 }
 
 @media (max-width: 900px) {
@@ -312,30 +334,69 @@ button {
 
 @media (max-width: 620px) {
   .site-header {
+    align-items: flex-start;
     padding-top: 18px;
     padding-bottom: 18px;
   }
 
   .site-nav {
-    gap: 14px;
+    gap: 13px;
     font-size: 0.78rem;
   }
 
   .hero {
-    min-height: 70svh;
+    min-height: 76svh;
+    padding-top: 96px;
+    padding-bottom: 64px;
   }
 
   .hero h1 {
-    font-size: clamp(3.8rem, 21vw, 7.2rem);
+    font-size: clamp(3.4rem, 18vw, 6.6rem);
+    line-height: 0.9;
+  }
+
+  .section {
+    padding-top: clamp(84px, 22vw, 120px);
+    padding-bottom: clamp(84px, 22vw, 120px);
+  }
+
+  .section-heading {
+    margin-bottom: 42px;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(2.1rem, 11vw, 3.6rem);
   }
 
   .gallery {
     column-count: 1;
+    max-width: 100%;
+  }
+
+  .work-card {
+    margin-bottom: 44px;
   }
 
   .work-card figcaption {
     align-items: flex-start;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
+    margin-top: 11px;
+  }
+
+  .lightbox {
+    align-items: center;
+    padding: 14px;
+  }
+
+  .lightbox-content img {
+    max-height: 78svh;
+  }
+
+  .lightbox-close {
+    top: 12px;
+    right: 12px;
+    width: 42px;
+    height: 42px;
   }
 }

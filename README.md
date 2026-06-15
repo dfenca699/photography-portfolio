@@ -1,6 +1,6 @@
-# Jiajie Gong Photography Portfolio
+# kyokaketsu Photography Portfolio
 
-一个简洁的个人摄影作品集网站，使用纯 HTML、CSS 和 JavaScript 制作，适合部署到 GitHub Pages。
+这是一个简洁的个人摄影作品集网站，使用纯 HTML、CSS 和 JavaScript 制作，适合部署到 GitHub Pages。
 
 ## 文件结构
 
@@ -18,9 +18,9 @@
 
 ## 替换照片
 
-把你的摄影作品放进 `images` 文件夹里。当前项目里的 `photo-01.jpg` 到 `photo-12.jpg` 已经使用桌面文件夹 `微信文件传输助手图片_2026-06-15` 中的不重复照片，并压缩成适合网页展示的版本。
+把你的摄影作品放进 `images` 文件夹里。当前项目里的 `photo-01.jpg` 到 `photo-12.jpg` 已经使用不重复照片，并压缩成适合网页展示的版本。
 
-最简单的方式是直接替换这些占位文件：
+最简单的方式是直接替换这些文件：
 
 - `images/photo-01.jpg`
 - `images/photo-02.jpg`
@@ -35,6 +35,15 @@
 - `data-place`
 - `alt`
 - `<figcaption>` 里的文字
+
+## 修改联系方式
+
+邮箱和 Instagram 链接在 `index.html` 的 Contact 区域里。
+
+当前使用：
+
+- 邮箱：`gongjiajie5@icloud.com`
+- Instagram：`https://www.instagram.com/kyokaketsu/`
 
 ## 本地预览
 
