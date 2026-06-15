@@ -18,14 +18,14 @@
 
 ## 替换照片
 
-把你的摄影作品放进 `images` 文件夹里。当前项目里的 `photo-01.jpg` 到 `photo-12.jpg` 已经使用不重复照片，并压缩成适合网页展示的版本。
+把你的摄影作品放进 `images` 文件夹里。当前项目里的 `photo-01.jpg` 到 `photo-19.jpg` 已经使用不重复照片，并压缩成适合网页展示的版本。
 
 最简单的方式是直接替换这些文件：
 
 - `images/photo-01.jpg`
 - `images/photo-02.jpg`
 - `images/photo-03.jpg`
-- 一直到 `images/photo-12.jpg`
+- 一直到 `images/photo-19.jpg`
 
 建议上传到网站的图片控制在 2000px 宽以内，这样页面打开会更快。
 
