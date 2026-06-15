@@ -244,6 +244,10 @@ button {
   transition: color 180ms ease;
 }
 
+.contact-email {
+  white-space: nowrap;
+}
+
 .site-footer {
   padding: 38px var(--side-space) 52px;
   color: var(--color-muted);
@@ -382,6 +386,10 @@ button {
     flex-direction: column;
     gap: 5px;
     margin-top: 11px;
+  }
+
+  .contact-links {
+    font-size: clamp(1rem, 6vw, 1.35rem);
   }
 
   .lightbox {
