@@ -6,8 +6,26 @@
     <title>kyokaketsu | Photography</title>
     <meta
       name="description"
-      content="Personal photography portfolio of kyokaketsu."
+      content="A quiet personal photography portfolio by kyokaketsu, focused on city moments, light, shadow, and ordinary presence."
     />
+    <meta property="og:title" content="kyokaketsu | Photography" />
+    <meta
+      property="og:description"
+      content="A quiet personal photography portfolio focused on fleeting city moments, light, shadow, and ordinary presence."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://dfenca699.github.io/photography-portfolio/"
+    />
+    <meta property="og:image" content="images/photo-01.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="kyokaketsu | Photography" />
+    <meta
+      name="twitter:description"
+      content="A quiet personal photography portfolio focused on fleeting city moments."
+    />
+    <meta name="twitter:image" content="images/photo-01.jpg" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -35,394 +53,426 @@
         <div class="hero-inner">
           <p class="eyebrow">Photography</p>
           <h1 id="hero-title">kyokaketsu</h1>
-          <p class="hero-line">Photography / Everyday Light / Passing Moments</p>
+          <p class="hero-line">Photography as a quiet question.</p>
         </div>
       </section>
 
       <section class="section works-section" id="works" aria-labelledby="works-title">
         <div class="section-heading">
           <p class="eyebrow">Selected Works</p>
-          <h2 id="works-title">Recent photographs, loosely held.</h2>
+          <div class="works-intro">
+            <h2 id="works-title">A quiet sequence of city fragments.</h2>
+            <div
+              class="filter-controls"
+              role="group"
+              aria-label="Filter works by category"
+            >
+              <button
+                class="filter-button is-active"
+                type="button"
+                data-filter="all"
+                aria-pressed="true"
+              >
+                All
+              </button>
+              <button
+                class="filter-button"
+                type="button"
+                data-filter="monochrome"
+                aria-pressed="false"
+              >
+                Monochrome
+              </button>
+              <button
+                class="filter-button"
+                type="button"
+                data-filter="color"
+                aria-pressed="false"
+              >
+                Color
+              </button>
+            </div>
+          </div>
         </div>
 
         <div class="gallery" aria-label="Photography gallery">
-          <figure class="work-card">
+          <figure class="work-card" data-category="monochrome">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 01"
-              data-place="Recent archive"
+              data-title="01"
+              data-category-label="Monochrome"
             >
               <img
-                src="images/photo-01.jpg"
-                alt="Untitled photograph 01"
+                src="images/monochrome-01.jpg"
+                alt="Monochrome photograph 01 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 01</span>
-              <small>Recent archive</small>
+              <span>01</span>
+              <small>Monochrome</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="monochrome">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 02"
-              data-place="Recent archive"
+              data-title="02"
+              data-category-label="Monochrome"
             >
               <img
-                src="images/photo-02.jpg"
-                alt="Untitled photograph 02"
+                src="images/monochrome-02.jpg"
+                alt="Monochrome photograph 02 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 02</span>
-              <small>Recent archive</small>
+              <span>02</span>
+              <small>Monochrome</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="monochrome">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 03"
-              data-place="Recent archive"
+              data-title="03"
+              data-category-label="Monochrome"
             >
               <img
-                src="images/photo-03.jpg"
-                alt="Untitled photograph 03"
+                src="images/monochrome-03.jpg"
+                alt="Monochrome photograph 03 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 03</span>
-              <small>Recent archive</small>
+              <span>03</span>
+              <small>Monochrome</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="monochrome">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 04"
-              data-place="Recent archive"
+              data-title="04"
+              data-category-label="Monochrome"
             >
               <img
-                src="images/photo-04.jpg"
-                alt="Untitled photograph 04"
+                src="images/monochrome-04.jpg"
+                alt="Monochrome photograph 04 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 04</span>
-              <small>Recent archive</small>
+              <span>04</span>
+              <small>Monochrome</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="monochrome">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 05"
-              data-place="Recent archive"
+              data-title="05"
+              data-category-label="Monochrome"
             >
               <img
-                src="images/photo-05.jpg"
-                alt="Untitled photograph 05"
+                src="images/monochrome-05.jpg"
+                alt="Monochrome photograph 05 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 05</span>
-              <small>Recent archive</small>
+              <span>05</span>
+              <small>Monochrome</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="color">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 06"
-              data-place="Recent archive"
+              data-title="01"
+              data-category-label="Color"
             >
               <img
-                src="images/photo-06.jpg"
-                alt="Untitled photograph 06"
+                src="images/color-01.jpg"
+                alt="Color photograph 01 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 06</span>
-              <small>Recent archive</small>
+              <span>01</span>
+              <small>Color</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="color">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 07"
-              data-place="Recent archive"
+              data-title="02"
+              data-category-label="Color"
             >
               <img
-                src="images/photo-07.jpg"
-                alt="Untitled photograph 07"
+                src="images/color-02.jpg"
+                alt="Color photograph 02 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 07</span>
-              <small>Recent archive</small>
+              <span>02</span>
+              <small>Color</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="color">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 08"
-              data-place="Recent archive"
+              data-title="03"
+              data-category-label="Color"
             >
               <img
-                src="images/photo-08.jpg"
-                alt="Untitled photograph 08"
+                src="images/color-03.jpg"
+                alt="Color photograph 03 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 08</span>
-              <small>Recent archive</small>
+              <span>03</span>
+              <small>Color</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="color">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 09"
-              data-place="Recent archive"
+              data-title="04"
+              data-category-label="Color"
             >
               <img
-                src="images/photo-09.jpg"
-                alt="Untitled photograph 09"
+                src="images/color-04.jpg"
+                alt="Color photograph 04 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 09</span>
-              <small>Recent archive</small>
+              <span>04</span>
+              <small>Color</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="color">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 10"
-              data-place="Recent archive"
+              data-title="05"
+              data-category-label="Color"
             >
               <img
-                src="images/photo-10.jpg"
-                alt="Untitled photograph 10"
+                src="images/color-05.jpg"
+                alt="Color photograph 05 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 10</span>
-              <small>Recent archive</small>
+              <span>05</span>
+              <small>Color</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="color">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 11"
-              data-place="Recent archive"
+              data-title="06"
+              data-category-label="Color"
             >
               <img
-                src="images/photo-11.jpg"
-                alt="Untitled photograph 11"
+                src="images/color-06.jpg"
+                alt="Color photograph 06 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 11</span>
-              <small>Recent archive</small>
+              <span>06</span>
+              <small>Color</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="color">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 12"
-              data-place="Recent archive"
+              data-title="07"
+              data-category-label="Color"
             >
               <img
-                src="images/photo-12.jpg"
-                alt="Untitled photograph 12"
+                src="images/color-07.jpg"
+                alt="Color photograph 07 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 12</span>
-              <small>Recent archive</small>
+              <span>07</span>
+              <small>Color</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="color">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 13"
-              data-place="Recent archive"
+              data-title="08"
+              data-category-label="Color"
             >
               <img
-                src="images/photo-13.jpg"
-                alt="Untitled photograph 13"
+                src="images/color-08.jpg"
+                alt="Color photograph 08 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 13</span>
-              <small>Recent archive</small>
+              <span>08</span>
+              <small>Color</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="color">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 14"
-              data-place="Recent archive"
+              data-title="09"
+              data-category-label="Color"
             >
               <img
-                src="images/photo-14.jpg"
-                alt="Untitled photograph 14"
+                src="images/color-09.jpg"
+                alt="Color photograph 09 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 14</span>
-              <small>Recent archive</small>
+              <span>09</span>
+              <small>Color</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="color">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 15"
-              data-place="Recent archive"
+              data-title="10"
+              data-category-label="Color"
             >
               <img
-                src="images/photo-15.jpg"
-                alt="Untitled photograph 15"
+                src="images/color-10.jpg"
+                alt="Color photograph 10 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 15</span>
-              <small>Recent archive</small>
+              <span>10</span>
+              <small>Color</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="color">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 16"
-              data-place="Recent archive"
+              data-title="11"
+              data-category-label="Color"
             >
               <img
-                src="images/photo-16.jpg"
-                alt="Untitled photograph 16"
+                src="images/color-11.jpg"
+                alt="Color photograph 11 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 16</span>
-              <small>Recent archive</small>
+              <span>11</span>
+              <small>Color</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="color">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 17"
-              data-place="Recent archive"
+              data-title="12"
+              data-category-label="Color"
             >
               <img
-                src="images/photo-17.jpg"
-                alt="Untitled photograph 17"
+                src="images/color-12.jpg"
+                alt="Color photograph 12 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 17</span>
-              <small>Recent archive</small>
+              <span>12</span>
+              <small>Color</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="color">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 18"
-              data-place="Recent archive"
+              data-title="13"
+              data-category-label="Color"
             >
               <img
-                src="images/photo-18.jpg"
-                alt="Untitled photograph 18"
+                src="images/color-13.jpg"
+                alt="Color photograph 13 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 18</span>
-              <small>Recent archive</small>
+              <span>13</span>
+              <small>Color</small>
             </figcaption>
           </figure>
 
-          <figure class="work-card">
+          <figure class="work-card" data-category="color">
             <button
               class="photo-button"
               type="button"
-              data-title="Untitled 19"
-              data-place="Recent archive"
+              data-title="14"
+              data-category-label="Color"
             >
               <img
-                src="images/photo-19.jpg"
-                alt="Untitled photograph 19"
+                src="images/color-14.jpg"
+                alt="Color photograph 14 from the city sequence"
                 loading="lazy"
                 decoding="async"
               />
             </button>
             <figcaption>
-              <span>Untitled 19</span>
-              <small>Recent archive</small>
+              <span>14</span>
+              <small>Color</small>
             </figcaption>
           </figure>
         </div>
@@ -435,14 +485,18 @@
         </div>
         <div class="text-block">
           <p>
-            I take photographs as a way to stay with ordinary light a little
-            longer. The work begins in small pauses: a wall after rain, a face
-            half turned away, a street that feels familiar before I know why.
+            I photograph fleeting moments I encounter while walking through the
+            city &mdash; light, shadow, movement, silence, and the quiet presence of
+            people.
           </p>
           <p>
-            This space is less about explaining each image than letting them
-            gather into a rhythm. Some frames are direct, some are uncertain,
-            and the quiet between them matters just as much.
+            Rooted in street photography, my work follows ordinary scenes that
+            often pass unnoticed. I am drawn to moments where the everyday
+            becomes uncertain, fragile, or quietly intense.
+          </p>
+          <p>
+            I continue to photograph while asking what photography can do,
+            hoping each image leaves a small question behind.
           </p>
         </div>
       </section>
@@ -454,7 +508,7 @@
       >
         <div class="section-heading">
           <p class="eyebrow">Contact</p>
-          <h2 id="contact-title">For prints, notes, or a quiet hello.</h2>
+          <h2 id="contact-title">For inquiries, prints, or conversations.</h2>
         </div>
         <div class="contact-links">
           <a class="contact-email" href="mailto:gongjiajie5@icloud.com">
@@ -475,7 +529,13 @@
       <p>&copy; 2026 kyokaketsu</p>
     </footer>
 
-    <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog">
+    <div
+      class="lightbox"
+      id="lightbox"
+      aria-hidden="true"
+      aria-modal="true"
+      role="dialog"
+    >
       <button class="lightbox-close" type="button" aria-label="Close preview">
         &times;
       </button>

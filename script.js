@@ -8,8 +8,19 @@ const menu = document.querySelector("[data-menu]");
 const menuToggle = document.querySelector(".menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 const navItems = document.querySelectorAll(".nav-links a");
+const filterButtons = document.querySelectorAll("[data-filter]");
+const filterableCards = document.querySelectorAll(".work-card[data-category]");
+const revealItems = document.querySelectorAll(
+  ".section-heading, .text-block, .contact-links, .site-footer"
+);
+const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 let lastFocusedElement = null;
+let clearLightboxTimer = null;
+
+function prefersReducedMotion() {
+  return motionQuery.matches;
+}
 
 function setMenuOpen(isOpen) {
   if (!menu || !menuToggle || !navLinks) {
@@ -26,6 +37,43 @@ function closeMenu() {
   setMenuOpen(false);
 }
 
+function setActiveFilter(filter) {
+  filterButtons.forEach((button) => {
+    const isActive = button.dataset.filter === filter;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+
+  filterableCards.forEach((card) => {
+    const shouldShow = filter === "all" || card.dataset.category === filter;
+
+    if (shouldShow) {
+      card.hidden = false;
+      card.classList.add("is-visible");
+      window.requestAnimationFrame(() => {
+        card.classList.remove("is-filtered-out");
+      });
+      return;
+    }
+
+    card.classList.add("is-filtered-out");
+    window.setTimeout(
+      () => {
+        if (card.classList.contains("is-filtered-out")) {
+          card.hidden = true;
+        }
+      },
+      prefersReducedMotion() ? 0 : 360
+    );
+  });
+}
+
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    setActiveFilter(button.dataset.filter);
+  });
+});
+
 if (menu && menuToggle && navLinks) {
   menuToggle.addEventListener("click", () => {
     setMenuOpen(!menu.classList.contains("is-open"));
@@ -40,7 +88,10 @@ if (menu && menuToggle && navLinks) {
       }
 
       event.preventDefault();
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      target.scrollIntoView({
+        behavior: prefersReducedMotion() ? "auto" : "smooth",
+        block: "start",
+      });
       closeMenu();
       history.pushState(null, "", item.getAttribute("href"));
     });
@@ -56,12 +107,14 @@ if (menu && menuToggle && navLinks) {
 function openLightbox(button) {
   const image = button.querySelector("img");
   const title = button.dataset.title || image.alt;
-  const place = button.dataset.place || "";
+  const category =
+    button.dataset.categoryLabel || button.closest(".work-card")?.dataset.category || "";
 
+  window.clearTimeout(clearLightboxTimer);
   lastFocusedElement = document.activeElement;
   lightboxImage.src = image.src;
   lightboxImage.alt = image.alt;
-  lightboxCaption.textContent = place ? `${title} / ${place}` : title;
+  lightboxCaption.textContent = category ? `${title} \u2014 ${category}` : title;
 
   lightbox.classList.add("is-open");
   lightbox.setAttribute("aria-hidden", "false");
@@ -73,7 +126,15 @@ function closeLightbox() {
   lightbox.classList.remove("is-open");
   lightbox.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
-  lightboxImage.src = "";
+
+  clearLightboxTimer = window.setTimeout(
+    () => {
+      if (!lightbox.classList.contains("is-open")) {
+        lightboxImage.src = "";
+      }
+    },
+    prefersReducedMotion() ? 0 : 520
+  );
 
   if (lastFocusedElement) {
     lastFocusedElement.focus();
@@ -107,20 +168,50 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(
+function revealElement(element) {
+  element.classList.add("is-visible");
+}
+
+const scrollRevealItems = [...revealItems, ...workCards];
+
+revealItems.forEach((item, index) => {
+  item.classList.add("reveal-item");
+  item.style.setProperty("--reveal-delay", `${Math.min(index * 70, 180)}ms`);
+});
+
+workCards.forEach((card, index) => {
+  card.style.setProperty("--reveal-delay", `${(index % 6) * 45}ms`);
+});
+
+if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
+  scrollRevealItems.forEach(revealElement);
+} else {
+  const revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
+          revealElement(entry.target);
+          revealObserver.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.12 }
+    {
+      rootMargin: "0px 0px -8% 0px",
+      threshold: 0.12,
+    }
   );
 
-  workCards.forEach((card) => observer.observe(card));
-} else {
-  workCards.forEach((card) => card.classList.add("is-visible"));
+  scrollRevealItems.forEach((item) => revealObserver.observe(item));
+}
+
+function handleMotionPreferenceChange() {
+  if (prefersReducedMotion()) {
+    scrollRevealItems.forEach(revealElement);
+  }
+}
+
+if (motionQuery.addEventListener) {
+  motionQuery.addEventListener("change", handleMotionPreferenceChange);
+} else if (motionQuery.addListener) {
+  motionQuery.addListener(handleMotionPreferenceChange);
 }
