@@ -948,78 +948,92 @@ button {
     z-index: 10000;
     box-sizing: border-box;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: flex-end;
     justify-content: flex-start;
     gap: 0;
-    width: auto !important;
+    width: 92px !important;
     min-width: 0 !important;
     max-width: calc(100vw - 28px) !important;
     height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
     padding: 0 !important;
-    overflow: visible !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    background: transparent !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 999px !important;
+    background: rgba(247, 246, 242, 0.94) !important;
     box-shadow: none !important;
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    backdrop-filter: blur(14px) !important;
+    transition: width 520ms var(--ease-premium),
+      max-height 520ms var(--ease-premium),
+      padding 520ms var(--ease-premium),
+      border-radius 520ms var(--ease-premium),
+      background-color 320ms var(--ease-calm),
+      border-color 320ms var(--ease-calm) !important;
   }
 
   .site-nav:not(.is-open) {
-    width: auto !important;
+    width: 92px !important;
     min-width: 0 !important;
     padding: 0 !important;
   }
 
   .site-nav.is-open {
-    width: auto !important;
+    width: 164px !important;
     min-width: 164px;
     max-width: calc(100vw - 28px) !important;
     height: auto !important;
     min-height: 0;
-    max-height: none !important;
+    max-height: 280px !important;
     padding: 22px 22px 24px !important;
-    gap: 22px;
-    overflow: visible !important;
+    gap: 0;
+    overflow: hidden !important;
     border: 1px solid rgba(0, 0, 0, 0.12) !important;
-    border-radius: 24px;
+    border-radius: 30px !important;
     background: rgba(247, 246, 242, 0.96) !important;
     -webkit-backdrop-filter: blur(14px) !important;
     backdrop-filter: blur(14px) !important;
   }
 
   .nav-links {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    max-height: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  .site-nav.is-open .nav-links {
+    order: 2;
     box-sizing: border-box;
     display: flex !important;
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
     gap: 20px;
-    width: auto !important;
-    min-width: 0;
-    max-width: 100%;
-    height: auto !important;
-    max-height: none !important;
+    width: 100% !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    margin-top: 0;
     padding: 0 !important;
-    overflow: visible !important;
+    overflow: hidden !important;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(0, -8px, 0);
+    -webkit-transform: translate3d(0, -8px, 0);
+    transition: max-height 420ms var(--ease-premium),
+      margin-top 420ms var(--ease-premium),
+      opacity 260ms var(--ease-calm),
+      transform 420ms var(--ease-premium),
+      visibility 0s linear 260ms !important;
+  }
+
+  .site-nav.is-open .nav-links {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 170px !important;
+    margin-top: 22px;
+    padding: 0 !important;
+    overflow: hidden !important;
     opacity: 1;
     visibility: visible;
-    transform: none !important;
-    -webkit-transform: none !important;
+    transform: translate3d(0, 0, 0) !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    transition-delay: 80ms, 80ms, 140ms, 80ms, 0s !important;
   }
 
   .nav-links a,
@@ -1034,6 +1048,7 @@ button {
   }
 
   .menu-toggle {
+    order: 1;
     align-self: flex-end;
     flex: 0 0 auto !important;
     display: inline-flex !important;
@@ -1048,15 +1063,15 @@ button {
   }
 
   .site-nav:not(.is-open) .menu-toggle {
-    width: 92px !important;
+    width: 90px !important;
     height: 44px !important;
-    min-width: 92px !important;
+    min-width: 90px !important;
     padding: 0 !important;
-    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border: 0 !important;
     border-radius: 999px !important;
-    background: rgba(247, 246, 242, 0.94) !important;
-    -webkit-backdrop-filter: blur(14px) !important;
-    backdrop-filter: blur(14px) !important;
+    background: transparent !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
     text-align: center !important;
   }
 
