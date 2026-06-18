@@ -938,13 +938,35 @@ button {
 
 @media (max-width: 768px) {
   .site-header {
+    --header-height: calc(env(safe-area-inset-top, 0px) + 76px);
+    --nav-padding: 16px;
+    --menu-gap: 16px;
+    --menu-width: 92px;
+    --menu-open-width: 168px;
+    --menu-button-height: 44px;
+    --menu-radius-closed: 999px;
+    --menu-radius-open: 28px;
+    align-items: flex-start;
+    min-height: var(--header-height);
+    padding-top: max(16px, calc(env(safe-area-inset-top, 0px) + var(--nav-padding)));
+    padding-right: max(20px, calc(env(safe-area-inset-right, 0px) + 20px));
+    padding-bottom: var(--menu-gap);
+    padding-left: max(22px, calc(env(safe-area-inset-left, 0px) + 22px));
+    background: rgba(247, 246, 242, 0.96);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.055);
     overflow: visible;
   }
 
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--menu-button-height);
+  }
+
   .site-nav {
-    position: fixed !important;
-    top: max(14px, calc(env(safe-area-inset-top, 0px) + 14px)) !important;
-    right: max(14px, calc(env(safe-area-inset-right, 0px) + 14px)) !important;
+    position: absolute !important;
+    top: max(16px, calc(env(safe-area-inset-top, 0px) + var(--nav-padding))) !important;
+    right: max(20px, calc(env(safe-area-inset-right, 0px) + 20px)) !important;
     z-index: 10000;
     box-sizing: border-box;
     display: flex;
@@ -952,16 +974,16 @@ button {
     align-items: flex-end;
     justify-content: flex-start;
     gap: 0;
-    width: 92px !important;
+    width: var(--menu-width) !important;
     min-width: 0 !important;
-    max-width: calc(100vw - 28px) !important;
+    max-width: calc(100vw - 40px) !important;
     height: auto !important;
-    min-height: 44px !important;
-    max-height: 44px !important;
+    min-height: var(--menu-button-height) !important;
+    max-height: var(--menu-button-height) !important;
     padding: 0 !important;
     overflow: hidden !important;
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
-    border-radius: 999px !important;
+    border-radius: var(--menu-radius-closed) !important;
     background: rgba(247, 246, 242, 0.94) !important;
     box-shadow: none !important;
     -webkit-backdrop-filter: blur(14px) !important;
@@ -970,28 +992,31 @@ button {
       max-height 520ms var(--ease-premium),
       padding 520ms var(--ease-premium),
       border-radius 520ms var(--ease-premium),
+      transform 520ms var(--ease-premium),
       background-color 320ms var(--ease-calm),
       border-color 320ms var(--ease-calm) !important;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
   }
 
   .site-nav:not(.is-open) {
-    width: 92px !important;
+    width: var(--menu-width) !important;
     min-width: 0 !important;
     padding: 0 !important;
   }
 
   .site-nav.is-open {
-    width: 164px !important;
-    min-width: 164px;
-    max-width: calc(100vw - 28px) !important;
+    width: var(--menu-open-width) !important;
+    min-width: var(--menu-open-width);
+    max-width: calc(100vw - 40px) !important;
     height: auto !important;
     min-height: 0;
-    max-height: 280px !important;
+    max-height: 284px !important;
     padding: 22px 22px 24px !important;
     gap: 0;
     overflow: hidden !important;
     border: 1px solid rgba(0, 0, 0, 0.12) !important;
-    border-radius: 30px !important;
+    border-radius: var(--menu-radius-open) !important;
     background: rgba(247, 246, 242, 0.96) !important;
     -webkit-backdrop-filter: blur(14px) !important;
     backdrop-filter: blur(14px) !important;
@@ -1013,6 +1038,7 @@ button {
     overflow: hidden !important;
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transform: translate3d(0, -8px, 0);
     -webkit-transform: translate3d(0, -8px, 0);
     transition: max-height 420ms var(--ease-premium),
@@ -1031,6 +1057,7 @@ button {
     overflow: hidden !important;
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
     transform: translate3d(0, 0, 0) !important;
     -webkit-transform: translate3d(0, 0, 0) !important;
     transition-delay: 80ms, 80ms, 140ms, 80ms, 0s !important;
@@ -1060,12 +1087,14 @@ button {
     padding: 0 !important;
     line-height: 1;
     text-align: center;
+    transition: color 240ms var(--ease-calm),
+      background-color 240ms var(--ease-calm), opacity 240ms var(--ease-calm) !important;
   }
 
   .site-nav:not(.is-open) .menu-toggle {
-    width: 90px !important;
-    height: 44px !important;
-    min-width: 90px !important;
+    width: calc(var(--menu-width) - 2px) !important;
+    height: calc(var(--menu-button-height) - 2px) !important;
+    min-width: calc(var(--menu-width) - 2px) !important;
     padding: 0 !important;
     border: 0 !important;
     border-radius: 999px !important;
@@ -1078,10 +1107,15 @@ button {
   .site-nav.is-open .menu-toggle {
     justify-content: flex-end !important;
     width: 100% !important;
+    height: auto !important;
     border: 0 !important;
     background: transparent !important;
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
+  }
+
+  .menu-toggle:active {
+    opacity: 0.7;
   }
 
   .hero {
