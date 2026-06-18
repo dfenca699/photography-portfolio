@@ -953,15 +953,25 @@ button {
     justify-content: flex-start;
     gap: 0;
     width: auto !important;
-    min-width: 86px;
+    min-width: 0 !important;
     max-width: calc(100vw - 28px) !important;
     height: auto !important;
-    min-height: 42px;
+    min-height: 0 !important;
     max-height: none !important;
-    padding: 4px;
-    overflow: hidden;
-    border-radius: 24px;
-    background: rgba(247, 246, 242, 0.94);
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .site-nav:not(.is-open) {
+    width: auto !important;
+    min-width: 0 !important;
+    padding: 0 !important;
   }
 
   .site-nav.is-open {
@@ -974,7 +984,11 @@ button {
     padding: 22px 22px 24px !important;
     gap: 22px;
     overflow: visible !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
     border-radius: 24px;
+    background: rgba(247, 246, 242, 0.96) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    backdrop-filter: blur(14px) !important;
   }
 
   .nav-links {
@@ -1022,18 +1036,55 @@ button {
   .menu-toggle {
     align-self: flex-end;
     flex: 0 0 auto !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     min-width: 0 !important;
     min-height: 0 !important;
     height: auto !important;
     padding: 0 !important;
     line-height: 1;
+    text-align: center;
+  }
+
+  .site-nav:not(.is-open) .menu-toggle {
+    width: 92px !important;
+    height: 44px !important;
+    min-width: 92px !important;
+    padding: 0 !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 999px !important;
+    background: rgba(247, 246, 242, 0.94) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    backdrop-filter: blur(14px) !important;
+    text-align: center !important;
+  }
+
+  .site-nav.is-open .menu-toggle {
+    justify-content: flex-end !important;
+    width: 100% !important;
+    border: 0 !important;
+    background: transparent !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
   }
 
   .hero {
     padding-top: max(150px, calc(env(safe-area-inset-top, 0px) + 136px));
   }
 
+  .hero-inner {
+    justify-items: start;
+  }
+
+  .hero .eyebrow,
   .hero h1 {
+    justify-self: start;
+    text-align: left;
+  }
+
+  .hero h1 {
+    grid-column: 1 / -1;
     font-size: 4.85rem;
     line-height: 0.82;
   }
