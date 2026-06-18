@@ -26,6 +26,12 @@
       content="A quiet personal photography portfolio focused on fleeting city moments."
     />
     <meta name="twitter:image" content="images/photo-01.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -59,43 +65,25 @@
 
       <section class="section works-section" id="works" aria-labelledby="works-title">
         <div class="section-heading">
-          <p class="eyebrow">Selected Works</p>
-          <div class="works-intro">
-            <h2 id="works-title">A quiet sequence of city fragments.</h2>
-            <div
-              class="filter-controls"
-              role="group"
-              aria-label="Filter works by category"
-            >
-              <button
-                class="filter-button is-active"
-                type="button"
-                data-filter="all"
-                aria-pressed="true"
-              >
-                All
-              </button>
-              <button
-                class="filter-button"
-                type="button"
-                data-filter="monochrome"
-                aria-pressed="false"
-              >
-                Monochrome
-              </button>
-              <button
-                class="filter-button"
-                type="button"
-                data-filter="color"
-                aria-pressed="false"
-              >
-                Color
-              </button>
-            </div>
+          <p class="eyebrow">Works</p>
+          <div>
+            <h2 id="works-title">Selected Works</h2>
+            <p class="section-summary">
+              A personal archive of light, silence, and passing moments.
+            </p>
           </div>
         </div>
 
-        <div class="gallery" aria-label="Photography gallery">
+        <div class="work-series" aria-labelledby="monochrome-title">
+          <div class="series-heading">
+            <p class="series-number">01</p>
+            <div class="series-copy">
+              <h3 id="monochrome-title">Monochrome</h3>
+              <p>Light, shadow, and the tension of the street.</p>
+            </div>
+          </div>
+
+          <div class="gallery" aria-label="Monochrome photography gallery">
           <figure class="work-card" data-category="monochrome">
             <button
               class="photo-button"
@@ -124,7 +112,7 @@
               data-category-label="Monochrome"
             >
               <img
-                src="images/monochrome-02.jpg"
+                src="images/monochrome-03.jpg"
                 alt="Monochrome photograph 02 from the city sequence"
                 loading="lazy"
                 decoding="async"
@@ -144,7 +132,7 @@
               data-category-label="Monochrome"
             >
               <img
-                src="images/monochrome-03.jpg"
+                src="images/monochrome-04.jpg"
                 alt="Monochrome photograph 03 from the city sequence"
                 loading="lazy"
                 decoding="async"
@@ -164,7 +152,7 @@
               data-category-label="Monochrome"
             >
               <img
-                src="images/monochrome-04.jpg"
+                src="images/monochrome-05.jpg"
                 alt="Monochrome photograph 04 from the city sequence"
                 loading="lazy"
                 decoding="async"
@@ -175,27 +163,19 @@
               <small>Monochrome</small>
             </figcaption>
           </figure>
+          </div>
+        </div>
 
-          <figure class="work-card" data-category="monochrome">
-            <button
-              class="photo-button"
-              type="button"
-              data-title="05"
-              data-category-label="Monochrome"
-            >
-              <img
-                src="images/monochrome-05.jpg"
-                alt="Monochrome photograph 05 from the city sequence"
-                loading="lazy"
-                decoding="async"
-              />
-            </button>
-            <figcaption>
-              <span>05</span>
-              <small>Monochrome</small>
-            </figcaption>
-          </figure>
+        <div class="work-series work-series-color" aria-labelledby="color-title">
+          <div class="series-heading">
+            <p class="series-number">02</p>
+            <div class="series-copy">
+              <h3 id="color-title">Color</h3>
+              <p>Fragments of everyday life, held in passing.</p>
+            </div>
+          </div>
 
+          <div class="gallery" aria-label="Color photography gallery">
           <figure class="work-card" data-category="color">
             <button
               class="photo-button"
@@ -475,6 +455,7 @@
               <small>Color</small>
             </figcaption>
           </figure>
+          </div>
         </div>
       </section>
 

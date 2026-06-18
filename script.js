@@ -8,10 +8,8 @@ const menu = document.querySelector("[data-menu]");
 const menuToggle = document.querySelector(".menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 const navItems = document.querySelectorAll(".nav-links a");
-const filterButtons = document.querySelectorAll("[data-filter]");
-const filterableCards = document.querySelectorAll(".work-card[data-category]");
 const revealItems = document.querySelectorAll(
-  ".section-heading, .text-block, .contact-links, .site-footer"
+  ".section-heading, .series-heading, .text-block, .contact-links, .site-footer"
 );
 const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -36,43 +34,6 @@ function setMenuOpen(isOpen) {
 function closeMenu() {
   setMenuOpen(false);
 }
-
-function setActiveFilter(filter) {
-  filterButtons.forEach((button) => {
-    const isActive = button.dataset.filter === filter;
-    button.classList.toggle("is-active", isActive);
-    button.setAttribute("aria-pressed", String(isActive));
-  });
-
-  filterableCards.forEach((card) => {
-    const shouldShow = filter === "all" || card.dataset.category === filter;
-
-    if (shouldShow) {
-      card.hidden = false;
-      card.classList.add("is-visible");
-      window.requestAnimationFrame(() => {
-        card.classList.remove("is-filtered-out");
-      });
-      return;
-    }
-
-    card.classList.add("is-filtered-out");
-    window.setTimeout(
-      () => {
-        if (card.classList.contains("is-filtered-out")) {
-          card.hidden = true;
-        }
-      },
-      prefersReducedMotion() ? 0 : 360
-    );
-  });
-}
-
-filterButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    setActiveFilter(button.dataset.filter);
-  });
-});
 
 if (menu && menuToggle && navLinks) {
   menuToggle.addEventListener("click", () => {
