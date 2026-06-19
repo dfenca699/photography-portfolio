@@ -178,6 +178,16 @@ button {
     visibility 0s linear 220ms;
 }
 
+.site-nav.is-opening .menu-panel,
+.site-nav.is-closing .menu-panel {
+  visibility: visible;
+}
+
+.site-nav.is-opening .menu-panel,
+.site-nav.is-closing .menu-panel {
+  pointer-events: none;
+}
+
 .site-nav.is-open .menu-panel {
   opacity: 1;
   visibility: visible;

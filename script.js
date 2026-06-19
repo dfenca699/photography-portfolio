@@ -15,6 +15,8 @@ const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 let lastFocusedElement = null;
 let clearLightboxTimer = null;
+let menuAnimationTimer = null;
+let menuStateChangeId = 0;
 
 function prefersReducedMotion() {
   return motionQuery.matches;
@@ -25,10 +27,50 @@ function setMenuOpen(isOpen) {
     return;
   }
 
-  menu.classList.toggle("is-open", isOpen);
-  menuToggle.classList.toggle("is-open", isOpen);
+  menuStateChangeId += 1;
+  const stateChangeId = menuStateChangeId;
+  window.clearTimeout(menuAnimationTimer);
+  menu.classList.remove("is-opening", "is-closing");
   menuToggle.setAttribute("aria-expanded", String(isOpen));
-  menuPanel.setAttribute("aria-hidden", String(!isOpen));
+
+  if (prefersReducedMotion()) {
+    menu.classList.toggle("is-open", isOpen);
+    menuToggle.classList.toggle("is-open", isOpen);
+    menuPanel.setAttribute("aria-hidden", String(!isOpen));
+    return;
+  }
+
+  if (isOpen) {
+    menuPanel.setAttribute("aria-hidden", "false");
+    menu.classList.add("is-opening");
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        if (stateChangeId !== menuStateChangeId) {
+          return;
+        }
+
+        menu.classList.add("is-open");
+        menuToggle.classList.add("is-open");
+        menu.classList.remove("is-opening");
+      });
+    });
+    return;
+  }
+
+  menu.classList.add("is-closing");
+  menu.classList.remove("is-open");
+  menuToggle.classList.remove("is-open");
+  menuToggle.setAttribute("aria-expanded", "false");
+
+  menuAnimationTimer = window.setTimeout(() => {
+    if (stateChangeId !== menuStateChangeId) {
+      return;
+    }
+
+    menu.classList.remove("is-closing");
+    menuPanel.setAttribute("aria-hidden", "true");
+  }, 260);
 }
 
 function closeMenu() {
