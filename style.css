@@ -1006,10 +1006,84 @@ button {
     transform: translate3d(0, -6px, 0) scale(0.98);
     -webkit-transform: translate3d(0, -6px, 0) scale(0.98);
     transform-origin: top right;
-    transition: opacity 220ms var(--ease-premium),
-      transform 220ms var(--ease-premium),
-      visibility 0s linear 220ms !important;
+    transition: visibility 0s linear 260ms !important;
+    animation: none;
     will-change: opacity, transform;
+  }
+
+  .site-nav.is-opening .menu-panel {
+    opacity: 0;
+    visibility: visible;
+    pointer-events: none;
+    transform: translate3d(0, -8px, 0) scale(0.96) !important;
+    -webkit-transform: translate3d(0, -8px, 0) scale(0.96) !important;
+    animation: none;
+    transition: none !important;
+  }
+
+  .site-nav.is-open .menu-panel {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0) scale(1) !important;
+    -webkit-transform: translate3d(0, 0, 0) scale(1) !important;
+    animation: menuPanelIn 320ms var(--ease-premium) both;
+    transition: visibility 0s linear 0s !important;
+  }
+
+  .site-nav.is-closing .menu-panel {
+    visibility: visible;
+    pointer-events: none;
+    animation: menuPanelOut 260ms var(--ease-premium) both;
+    transition: visibility 0s linear 260ms !important;
+  }
+
+  @keyframes menuPanelIn {
+    from {
+      opacity: 0;
+      transform: translate3d(0, -8px, 0) scale(0.96);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes menuPanelOut {
+    from {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    to {
+      opacity: 0;
+      transform: translate3d(0, -6px, 0) scale(0.98);
+    }
+  }
+
+  @-webkit-keyframes menuPanelIn {
+    from {
+      opacity: 0;
+      -webkit-transform: translate3d(0, -8px, 0) scale(0.96);
+    }
+
+    to {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @-webkit-keyframes menuPanelOut {
+    from {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    to {
+      opacity: 0;
+      -webkit-transform: translate3d(0, -6px, 0) scale(0.98);
+    }
   }
 
   .site-nav.is-open .menu-panel {
