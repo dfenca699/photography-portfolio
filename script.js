@@ -6,8 +6,8 @@ const photoButtons = document.querySelectorAll(".photo-button");
 const workCards = document.querySelectorAll(".work-card");
 const menu = document.querySelector("[data-menu]");
 const menuToggle = document.querySelector(".menu-toggle");
-const navLinks = document.querySelector(".nav-links");
-const navItems = document.querySelectorAll(".nav-links a");
+const menuPanel = document.querySelector("#primary-navigation");
+const navItems = document.querySelectorAll(".menu-panel a");
 const revealItems = document.querySelectorAll(
   ".section-heading, .series-heading, .text-block, .contact-links, .site-footer"
 );
@@ -21,21 +21,21 @@ function prefersReducedMotion() {
 }
 
 function setMenuOpen(isOpen) {
-  if (!menu || !menuToggle || !navLinks) {
+  if (!menu || !menuToggle || !menuPanel) {
     return;
   }
 
   menu.classList.toggle("is-open", isOpen);
+  menuToggle.classList.toggle("is-open", isOpen);
   menuToggle.setAttribute("aria-expanded", String(isOpen));
-  menuToggle.textContent = isOpen ? "Close" : "Menu";
-  navLinks.setAttribute("aria-hidden", String(!isOpen));
+  menuPanel.setAttribute("aria-hidden", String(!isOpen));
 }
 
 function closeMenu() {
   setMenuOpen(false);
 }
 
-if (menu && menuToggle && navLinks) {
+if (menu && menuToggle && menuPanel) {
   menuToggle.addEventListener("click", () => {
     setMenuOpen(!menu.classList.contains("is-open"));
   });

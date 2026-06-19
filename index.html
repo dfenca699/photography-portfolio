@@ -32,25 +32,26 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@400..800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=20260618-menu-panel" />
   </head>
   <body>
     <header class="site-header">
       <a class="brand" href="#top" aria-label="kyokaketsu home">kyokaketsu</a>
       <nav class="site-nav" data-menu aria-label="Primary navigation">
-        <div class="nav-links" id="primary-navigation" aria-hidden="true">
-          <a href="#works">Works</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-        </div>
         <button
           class="menu-toggle"
           type="button"
           aria-expanded="false"
           aria-controls="primary-navigation"
         >
-          Menu
+          <span class="label-menu">Menu</span>
+          <span class="label-close" aria-hidden="true">Close</span>
         </button>
+        <div class="menu-panel" id="primary-navigation" aria-hidden="true">
+          <a href="#works">Works</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
       </nav>
     </header>
 
@@ -527,6 +528,6 @@
       </figure>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=20260618-menu-panel"></script>
   </body>
 </html>
