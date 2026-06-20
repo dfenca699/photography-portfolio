@@ -1189,6 +1189,7 @@ button {
     grid-column: 1 / -1;
     font-size: 4.85rem;
     line-height: 0.82;
+    margin-left: clamp(-24px, -5vw, -14px);
   }
 
   .hero-line {
@@ -1202,6 +1203,7 @@ button {
 @media (max-width: 430px) {
   .hero h1 {
     font-size: 3.85rem;
+    margin-left: clamp(-28px, -6vw, -18px);
   }
 
   .hero-line {
