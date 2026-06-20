@@ -29,48 +29,95 @@ function setMenuOpen(isOpen) {
 
   menuStateChangeId += 1;
   const stateChangeId = menuStateChangeId;
-  window.clearTimeout(menuAnimationTimer);
-  menu.classList.remove("is-opening", "is-closing");
-  menuToggle.setAttribute("aria-expanded", String(isOpen));
 
-  if (prefersReducedMotion()) {
-    menu.classList.toggle("is-open", isOpen);
-    menuToggle.classList.toggle("is-open", isOpen);
-    menuPanel.setAttribute("aria-hidden", String(!isOpen));
-    return;
+  if (menuAnimationTimer) {
+    window.clearTimeout(menuAnimationTimer);
+    menuAnimationTimer = null;
   }
 
+  const isMobileMenu = window.matchMedia("(max-width: 768px)").matches;
+  const useReducedMotion = prefersReducedMotion();
+  const duration = useReducedMotion ? 220 : isOpen ? 380 : 300;
+  const easing = "cubic-bezier(0.16, 1, 0.3, 1)";
+
+  function getAnimationName(direction) {
+    if (useReducedMotion) {
+      return direction === "open" ? "menuPanelFadeIn" : "menuPanelFadeOut";
+    }
+
+    if (isMobileMenu) {
+      return direction === "open" ? "menuPanelOpenMobile" : "menuPanelCloseMobile";
+    }
+
+    return direction === "open" ? "menuPanelOpenDesktop" : "menuPanelCloseDesktop";
+  }
+
+  function clearPanelRuntimeStyles() {
+    menuPanel.style.removeProperty("visibility");
+    menuPanel.style.removeProperty("pointer-events");
+    menuPanel.style.removeProperty("animation");
+    menuPanel.style.removeProperty("-webkit-animation");
+  }
+
+  function playMenuAnimation(animationName, onfinish) {
+    const animationValue = `${animationName} ${duration}ms ${easing} both`;
+
+    menuPanel.style.setProperty("animation", "none", "important");
+    menuPanel.style.setProperty("-webkit-animation", "none", "important");
+    menuPanel.offsetHeight;
+    menuPanel.style.setProperty("animation", animationValue, "important");
+    menuPanel.style.setProperty("-webkit-animation", animationValue, "important");
+
+    function handleAnimationEnd(event) {
+      if (event.target !== menuPanel) {
+        return;
+      }
+
+      menuPanel.removeEventListener("animationend", handleAnimationEnd);
+      menuPanel.removeEventListener("webkitAnimationEnd", handleAnimationEnd);
+      if (stateChangeId === menuStateChangeId) {
+        onfinish();
+      }
+    }
+
+    menuPanel.addEventListener("animationend", handleAnimationEnd);
+    menuPanel.addEventListener("webkitAnimationEnd", handleAnimationEnd);
+    menuAnimationTimer = window.setTimeout(() => {
+      menuPanel.removeEventListener("animationend", handleAnimationEnd);
+      menuPanel.removeEventListener("webkitAnimationEnd", handleAnimationEnd);
+      if (stateChangeId === menuStateChangeId) {
+        onfinish();
+      }
+    }, duration + 120);
+  }
+
+  menuPanel.style.pointerEvents = isOpen ? "auto" : "none";
+  menuPanel.style.visibility = "visible";
+
   if (isOpen) {
+    menu.classList.remove("is-closing");
+    menu.classList.add("is-open");
     menuPanel.setAttribute("aria-hidden", "false");
-    menu.classList.add("is-opening");
+    menuToggle.setAttribute("aria-expanded", "true");
 
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        if (stateChangeId !== menuStateChangeId) {
-          return;
-        }
-
-        menu.classList.add("is-open");
-        menuToggle.classList.add("is-open");
-        menu.classList.remove("is-opening");
-      });
+    playMenuAnimation(getAnimationName("open"), () => {
+      menu.classList.remove("is-closing");
+      clearPanelRuntimeStyles();
+      menuPanel.setAttribute("aria-hidden", "false");
+      menuAnimationTimer = null;
     });
     return;
   }
 
   menu.classList.add("is-closing");
-  menu.classList.remove("is-open");
-  menuToggle.classList.remove("is-open");
   menuToggle.setAttribute("aria-expanded", "false");
 
-  menuAnimationTimer = window.setTimeout(() => {
-    if (stateChangeId !== menuStateChangeId) {
-      return;
-    }
-
-    menu.classList.remove("is-closing");
+  playMenuAnimation(getAnimationName("close"), () => {
+    menu.classList.remove("is-open", "is-closing");
+    clearPanelRuntimeStyles();
     menuPanel.setAttribute("aria-hidden", "true");
-  }, 260);
+    menuAnimationTimer = null;
+  });
 }
 
 function closeMenu() {
@@ -79,7 +126,10 @@ function closeMenu() {
 
 if (menu && menuToggle && menuPanel) {
   menuToggle.addEventListener("click", () => {
-    setMenuOpen(!menu.classList.contains("is-open"));
+    const isVisiblyOpen =
+      menu.classList.contains("is-open") && !menu.classList.contains("is-closing");
+
+    setMenuOpen(!isVisiblyOpen);
   });
 
   navItems.forEach((item) => {
