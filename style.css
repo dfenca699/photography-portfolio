@@ -25,7 +25,10 @@
 html {
   min-height: -webkit-fill-available;
   min-height: 100dvh;
+  overflow-x: hidden;
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -33,6 +36,7 @@ body {
   min-height: -webkit-fill-available;
   min-height: 100dvh;
   margin: 0;
+  overflow-x: hidden;
   background-color: var(--color-page);
   background-image: linear-gradient(
       rgba(26, 26, 26, 0.035) 1px,
@@ -47,6 +51,16 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-x: none;
+}
+
+body.is-lightbox-open {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+  touch-action: none;
 }
 
 ::selection {
@@ -1284,6 +1298,93 @@ button {
 
   .hero-line {
     grid-column: 3 / -1;
+  }
+}
+
+@media (max-width: 768px) and (pointer: coarse) {
+  body::before {
+    opacity: 0.018;
+    background-size: 8px 8px, 12px 12px;
+  }
+
+  .site-header {
+    background: rgba(247, 246, 242, 0.985);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    transform: none;
+    -webkit-transform: none;
+    will-change: auto;
+  }
+
+  .site-nav {
+    transform: none !important;
+    -webkit-transform: none !important;
+  }
+
+  .menu-toggle,
+  .menu-panel {
+    background: rgba(247, 246, 242, 0.985);
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .menu-panel {
+    position: fixed;
+    top: max(74px, calc(env(safe-area-inset-top, 0px) + 74px));
+    right: max(20px, calc(env(safe-area-inset-right, 0px) + 20px));
+  }
+
+  .work-card {
+    transition-duration: 620ms;
+    will-change: auto;
+  }
+
+  .photo-button {
+    box-shadow: none;
+    transition-duration: 260ms;
+    touch-action: manipulation;
+    will-change: transform;
+  }
+
+  .photo-button img {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition-duration: 320ms;
+  }
+
+  .photo-button:active {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+    transform: scale(0.985);
+  }
+
+  .lightbox {
+    padding: max(14px, env(safe-area-inset-top, 0px))
+      max(14px, env(safe-area-inset-right, 0px))
+      max(14px, env(safe-area-inset-bottom, 0px))
+      max(14px, env(safe-area-inset-left, 0px));
+    overscroll-behavior: contain;
+  }
+
+  .lightbox-content {
+    width: 100%;
+  }
+
+  .lightbox-content img {
+    width: auto;
+    max-width: 100%;
+    max-height: min(78svh, calc(100vh - 112px));
+  }
+}
+
+@media (max-width: 768px) and (pointer: coarse) {
+  @supports (height: 100svh) {
+    .hero {
+      min-height: 100svh;
+    }
+
+    .hero-inner {
+      min-height: calc(100svh - 176px);
+    }
   }
 }
 

@@ -17,6 +17,7 @@ let lastFocusedElement = null;
 let clearLightboxTimer = null;
 let menuAnimationTimer = null;
 let menuStateChangeId = 0;
+let lockedScrollY = 0;
 
 function prefersReducedMotion() {
   return motionQuery.matches;
@@ -124,6 +125,18 @@ function closeMenu() {
   setMenuOpen(false);
 }
 
+function lockPageScroll() {
+  lockedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+  document.body.style.top = `-${lockedScrollY}px`;
+  document.body.classList.add("is-lightbox-open");
+}
+
+function unlockPageScroll() {
+  document.body.classList.remove("is-lightbox-open");
+  document.body.style.top = "";
+  window.scrollTo(0, lockedScrollY);
+}
+
 if (menu && menuToggle && menuPanel) {
   menuToggle.addEventListener("click", () => {
     const isVisiblyOpen =
@@ -165,20 +178,20 @@ function openLightbox(button) {
 
   window.clearTimeout(clearLightboxTimer);
   lastFocusedElement = document.activeElement;
-  lightboxImage.src = image.src;
+  lightboxImage.src = image.currentSrc || image.src;
   lightboxImage.alt = image.alt;
   lightboxCaption.textContent = category ? `${title} \u2014 ${category}` : title;
 
   lightbox.classList.add("is-open");
   lightbox.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
+  lockPageScroll();
   closeButton.focus();
 }
 
 function closeLightbox() {
   lightbox.classList.remove("is-open");
   lightbox.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
+  unlockPageScroll();
 
   clearLightboxTimer = window.setTimeout(
     () => {
