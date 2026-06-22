@@ -7,10 +7,12 @@
   --color-soft: #a8a49a;
   --color-line: #d8d5cc;
   --color-overlay: rgba(11, 11, 10, 0.88);
-  --font-display: Syne, Inter, ui-sans-serif, system-ui, -apple-system,
+  --font-display: "Space Grotesk", "IBM Plex Sans", ui-sans-serif, system-ui,
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --font-main: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-  --font-main: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Arial, sans-serif;
+  --font-meta: "IBM Plex Mono", "Space Grotesk", ui-monospace, SFMono-Regular,
+    Menlo, Consolas, monospace;
   --side-space: clamp(22px, 7vw, 124px);
   --section-space: clamp(104px, 14vw, 196px);
   --gallery-gap: clamp(26px, 4vw, 58px);
@@ -130,7 +132,7 @@ button {
   font-family: var(--font-display);
   font-size: 0.84rem;
   font-weight: 700;
-  letter-spacing: 0;
+  letter-spacing: -0.015em;
 }
 
 .site-nav {
@@ -149,6 +151,7 @@ button {
   border-radius: 0;
   background: transparent;
   color: var(--color-muted);
+  font-family: var(--font-meta);
   font-size: 0.78rem;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
@@ -347,6 +350,8 @@ button {
   align-items: center;
   min-height: 34px;
   cursor: pointer;
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
   -webkit-tap-highlight-color: transparent;
   transition: color 260ms var(--ease-calm), opacity 260ms var(--ease-calm);
 }
@@ -382,6 +387,8 @@ button {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   color: var(--color-muted);
+  font-family: var(--font-meta);
+  font-size: 0.76rem;
   background: rgba(247, 246, 242, 0.72);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 999px;
@@ -513,9 +520,10 @@ button {
 .eyebrow {
   margin: 0 0 18px;
   color: var(--color-muted);
+  font-family: var(--font-meta);
   font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -525,7 +533,7 @@ button {
   margin: 0;
   color: #888888;
   font-size: 0.68rem;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.28em;
 }
 
 .hero h1 {
@@ -537,7 +545,7 @@ button {
   font-size: 11.25rem;
   font-weight: 600;
   line-height: 0.78;
-  letter-spacing: 0;
+  letter-spacing: -0.055em;
 }
 
 .hero-line {
@@ -585,12 +593,13 @@ button {
 }
 
 .section-heading h2 {
+  font-family: var(--font-display);
   max-width: 760px;
   margin: 0;
   font-size: clamp(2.35rem, 5.4vw, 5.8rem);
-  font-weight: 420;
+  font-weight: 500;
   line-height: 0.98;
-  letter-spacing: 0;
+  letter-spacing: -0.04em;
 }
 
 .section-summary {
@@ -641,9 +650,10 @@ button {
 
 .works-index span,
 .works-index small {
+  font-family: var(--font-meta);
   font-size: 0.68rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -677,17 +687,19 @@ button {
 .series-number {
   margin: 0.28em 0 0;
   color: var(--color-soft);
+  font-family: var(--font-meta);
   font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.16em;
 }
 
 .series-heading h3 {
+  font-family: var(--font-display);
   margin: 0;
   font-size: clamp(1.7rem, 3.2vw, 3.35rem);
-  font-weight: 420;
+  font-weight: 500;
   line-height: 1;
-  letter-spacing: 0;
+  letter-spacing: -0.035em;
 }
 
 .series-copy {
@@ -801,8 +813,9 @@ button {
   gap: 18px;
   margin-top: 11px;
   color: rgba(115, 113, 104, 0.72);
+  font-family: var(--font-meta);
   font-size: 0.66rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
