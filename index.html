@@ -32,7 +32,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@400..800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=20260620-title-left-1" />
+    <link rel="stylesheet" href="style.css?v=20260622-gallery-index-1" />
   </head>
   <body>
     <header class="site-header">
@@ -49,6 +49,8 @@
         </button>
         <div class="menu-panel" id="primary-navigation" aria-hidden="true">
           <a href="#works">Works</a>
+          <a href="#monochrome">Monochrome</a>
+          <a href="#color">Color</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
         </div>
@@ -75,7 +77,20 @@
           </div>
         </div>
 
-        <div class="work-series" aria-labelledby="monochrome-title">
+        <nav class="works-index" aria-label="Works sections">
+          <a href="#monochrome">
+            <span>01</span>
+            <strong>Monochrome</strong>
+            <small>10 photographs</small>
+          </a>
+          <a href="#color">
+            <span>02</span>
+            <strong>Color</strong>
+            <small>14 photographs</small>
+          </a>
+        </nav>
+
+        <div class="work-series" id="monochrome" aria-labelledby="monochrome-title">
           <div class="series-heading">
             <p class="series-number">01</p>
             <div class="series-copy">
@@ -113,7 +128,7 @@
               data-category-label="Monochrome"
             >
               <img
-                src="images/monochrome-03.jpg"
+                src="images/monochrome-02.jpg"
                 alt="Monochrome photograph 02 from the city sequence"
                 loading="lazy"
                 decoding="async"
@@ -133,7 +148,7 @@
               data-category-label="Monochrome"
             >
               <img
-                src="images/monochrome-04.jpg"
+                src="images/monochrome-03.jpg"
                 alt="Monochrome photograph 03 from the city sequence"
                 loading="lazy"
                 decoding="async"
@@ -153,7 +168,7 @@
               data-category-label="Monochrome"
             >
               <img
-                src="images/monochrome-05.jpg"
+                src="images/monochrome-04.jpg"
                 alt="Monochrome photograph 04 from the city sequence"
                 loading="lazy"
                 decoding="async"
@@ -173,7 +188,7 @@
               data-category-label="Monochrome"
             >
               <img
-                src="images/monochrome-06.jpg"
+                src="images/monochrome-05.jpg"
                 alt="Monochrome photograph 05 from the city sequence"
                 loading="lazy"
                 decoding="async"
@@ -193,7 +208,7 @@
               data-category-label="Monochrome"
             >
               <img
-                src="images/monochrome-07.jpg"
+                src="images/monochrome-06.jpg"
                 alt="Monochrome photograph 06 from the city sequence"
                 loading="lazy"
                 decoding="async"
@@ -213,7 +228,7 @@
               data-category-label="Monochrome"
             >
               <img
-                src="images/monochrome-08.jpg"
+                src="images/monochrome-07.jpg"
                 alt="Monochrome photograph 07 from the city sequence"
                 loading="lazy"
                 decoding="async"
@@ -233,7 +248,7 @@
               data-category-label="Monochrome"
             >
               <img
-                src="images/monochrome-09.jpg"
+                src="images/monochrome-08.jpg"
                 alt="Monochrome photograph 08 from the city sequence"
                 loading="lazy"
                 decoding="async"
@@ -253,7 +268,7 @@
               data-category-label="Monochrome"
             >
               <img
-                src="images/monochrome-10.jpg"
+                src="images/monochrome-09.jpg"
                 alt="Monochrome photograph 09 from the city sequence"
                 loading="lazy"
                 decoding="async"
@@ -264,10 +279,30 @@
               <small>Monochrome</small>
             </figcaption>
           </figure>
+
+          <figure class="work-card" data-category="monochrome">
+            <button
+              class="photo-button"
+              type="button"
+              data-title="10"
+              data-category-label="Monochrome"
+            >
+              <img
+                src="images/monochrome-10.jpg"
+                alt="Monochrome photograph 10 from the city sequence"
+                loading="lazy"
+                decoding="async"
+              />
+            </button>
+            <figcaption>
+              <span>10</span>
+              <small>Monochrome</small>
+            </figcaption>
+          </figure>
           </div>
         </div>
 
-        <div class="work-series work-series-color" aria-labelledby="color-title">
+        <div class="work-series work-series-color" id="color" aria-labelledby="color-title">
           <div class="series-heading">
             <p class="series-number">02</p>
             <div class="series-copy">
@@ -628,6 +663,6 @@
       </figure>
     </div>
 
-    <script src="script.js?v=20260620-title-left-1"></script>
+    <script src="script.js?v=20260622-gallery-index-1"></script>
   </body>
 </html>
