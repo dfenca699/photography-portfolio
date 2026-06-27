@@ -33,6 +33,10 @@ html {
   text-size-adjust: 100%;
 }
 
+html.is-restoring-scroll {
+  scroll-behavior: auto !important;
+}
+
 body {
   position: relative;
   min-height: -webkit-fill-available;

@@ -132,9 +132,37 @@ function lockPageScroll() {
 }
 
 function unlockPageScroll() {
+  const scrollYToRestore = lockedScrollY;
+
+  document.documentElement.classList.add("is-restoring-scroll");
   document.body.classList.remove("is-lightbox-open");
   document.body.style.top = "";
-  window.scrollTo(0, lockedScrollY);
+  window.scrollTo(0, scrollYToRestore);
+
+  // Reapply the position after layout settles. This prevents Safari and
+  // smooth-scroll CSS from leaving the page at the top after the lock ends.
+  window.requestAnimationFrame(() => {
+    window.scrollTo(0, scrollYToRestore);
+    window.requestAnimationFrame(() => {
+      window.scrollTo(0, scrollYToRestore);
+      document.documentElement.classList.remove("is-restoring-scroll");
+    });
+  });
+
+  return scrollYToRestore;
+}
+
+function restoreFocusWithoutScrolling(element, scrollYToRestore) {
+  if (!element) {
+    return;
+  }
+
+  try {
+    element.focus({ preventScroll: true });
+  } catch (error) {
+    element.focus();
+    window.scrollTo(0, scrollYToRestore);
+  }
 }
 
 if (menu && menuToggle && menuPanel) {
@@ -191,7 +219,7 @@ function openLightbox(button) {
 function closeLightbox() {
   lightbox.classList.remove("is-open");
   lightbox.setAttribute("aria-hidden", "true");
-  unlockPageScroll();
+  const scrollYToRestore = unlockPageScroll();
 
   clearLightboxTimer = window.setTimeout(
     () => {
@@ -202,9 +230,7 @@ function closeLightbox() {
     prefersReducedMotion() ? 0 : 520
   );
 
-  if (lastFocusedElement) {
-    lastFocusedElement.focus();
-  }
+  restoreFocusWithoutScrolling(lastFocusedElement, scrollYToRestore);
 }
 
 photoButtons.forEach((button) => {
