@@ -1,8 +1,11 @@
 const lightbox = document.querySelector("#lightbox");
 const lightboxImage = document.querySelector("#lightbox-image");
 const lightboxCaption = document.querySelector("#lightbox-caption");
+const lightboxContent = document.querySelector(".lightbox-content");
 const closeButton = document.querySelector(".lightbox-close");
-const photoButtons = document.querySelectorAll(".photo-button");
+const previousButton = document.querySelector(".lightbox-prev");
+const nextButton = document.querySelector(".lightbox-next");
+const photoButtons = Array.from(document.querySelectorAll(".photo-button"));
 const workCards = document.querySelectorAll(".work-card");
 const menu = document.querySelector("[data-menu]");
 const menuToggle = document.querySelector(".menu-toggle");
@@ -18,6 +21,10 @@ let clearLightboxTimer = null;
 let menuAnimationTimer = null;
 let menuStateChangeId = 0;
 let lockedScrollY = 0;
+let activePhotoIndex = -1;
+let photoChangeTimer = null;
+let touchStartX = null;
+let touchStartY = null;
 
 function prefersReducedMotion() {
   return motionQuery.matches;
@@ -198,17 +205,50 @@ if (menu && menuToggle && menuPanel) {
   });
 }
 
-function openLightbox(button) {
+function setLightboxPhoto(index, animate = false) {
+  if (!photoButtons.length) {
+    return;
+  }
+
+  activePhotoIndex = (index + photoButtons.length) % photoButtons.length;
+  const button = photoButtons[activePhotoIndex];
   const image = button.querySelector("img");
   const title = button.dataset.title || image.alt;
   const category =
     button.dataset.categoryLabel || button.closest(".work-card")?.dataset.category || "";
 
+  window.clearTimeout(photoChangeTimer);
+
+  function applyPhoto() {
+    lightboxImage.src = image.currentSrc || image.src;
+    lightboxImage.alt = image.alt;
+    lightboxCaption.textContent = category ? `${title} \u2014 ${category}` : title;
+
+    window.requestAnimationFrame(() => {
+      lightboxContent.classList.remove("is-changing");
+    });
+  }
+
+  if (animate && !prefersReducedMotion()) {
+    lightboxContent.classList.add("is-changing");
+    photoChangeTimer = window.setTimeout(applyPhoto, 110);
+  } else {
+    applyPhoto();
+  }
+}
+
+function changeLightboxPhoto(direction) {
+  if (!lightbox.classList.contains("is-open")) {
+    return;
+  }
+
+  setLightboxPhoto(activePhotoIndex + direction, true);
+}
+
+function openLightbox(button) {
   window.clearTimeout(clearLightboxTimer);
   lastFocusedElement = document.activeElement;
-  lightboxImage.src = image.currentSrc || image.src;
-  lightboxImage.alt = image.alt;
-  lightboxCaption.textContent = category ? `${title} \u2014 ${category}` : title;
+  setLightboxPhoto(photoButtons.indexOf(button));
 
   lightbox.classList.add("is-open");
   lightbox.setAttribute("aria-hidden", "false");
@@ -217,6 +257,8 @@ function openLightbox(button) {
 }
 
 function closeLightbox() {
+  window.clearTimeout(photoChangeTimer);
+  lightboxContent.classList.remove("is-changing");
   lightbox.classList.remove("is-open");
   lightbox.setAttribute("aria-hidden", "true");
   const scrollYToRestore = unlockPageScroll();
@@ -238,6 +280,8 @@ photoButtons.forEach((button) => {
 });
 
 closeButton.addEventListener("click", closeLightbox);
+previousButton.addEventListener("click", () => changeLightboxPhoto(-1));
+nextButton.addEventListener("click", () => changeLightboxPhoto(1));
 
 lightbox.addEventListener("click", (event) => {
   if (event.target.hasAttribute("data-close-lightbox")) {
@@ -245,13 +289,55 @@ lightbox.addEventListener("click", (event) => {
   }
 });
 
+lightboxContent.addEventListener(
+  "touchstart",
+  (event) => {
+    if (event.touches.length !== 1) {
+      return;
+    }
+
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
+  },
+  { passive: true }
+);
+
+lightboxContent.addEventListener(
+  "touchend",
+  (event) => {
+    if (touchStartX === null || touchStartY === null || !event.changedTouches.length) {
+      return;
+    }
+
+    const distanceX = event.changedTouches[0].clientX - touchStartX;
+    const distanceY = event.changedTouches[0].clientY - touchStartY;
+    touchStartX = null;
+    touchStartY = null;
+
+    if (Math.abs(distanceX) < 52 || Math.abs(distanceX) < Math.abs(distanceY) * 1.2) {
+      return;
+    }
+
+    changeLightboxPhoto(distanceX < 0 ? 1 : -1);
+  },
+  { passive: true }
+);
+
 document.addEventListener("keydown", (event) => {
-  if (event.key !== "Escape") {
+  if (lightbox.classList.contains("is-open")) {
+    if (event.key === "Escape") {
+      closeLightbox();
+    } else if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      changeLightboxPhoto(-1);
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      changeLightboxPhoto(1);
+    }
     return;
   }
 
-  if (lightbox.classList.contains("is-open")) {
-    closeLightbox();
+  if (event.key !== "Escape") {
     return;
   }
 
