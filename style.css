@@ -59,7 +59,6 @@ body.is-lightbox-open {
   right: 0;
   width: 100%;
   overflow: hidden;
-  touch-action: none;
 }
 
 ::selection {
@@ -976,6 +975,7 @@ button {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+  touch-action: none;
   transition-delay: 0s;
 }
 

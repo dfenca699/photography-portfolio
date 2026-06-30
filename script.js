@@ -21,6 +21,8 @@ let clearLightboxTimer = null;
 let menuAnimationTimer = null;
 let menuStateChangeId = 0;
 let lockedScrollY = 0;
+let pageScrollLocked = false;
+let scrollLockStateId = 0;
 let activePhotoIndex = -1;
 let photoChangeTimer = null;
 let touchStartX = null;
@@ -133,26 +135,47 @@ function closeMenu() {
 }
 
 function lockPageScroll() {
+  if (pageScrollLocked) {
+    return;
+  }
+
+  scrollLockStateId += 1;
+  pageScrollLocked = true;
   lockedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+  document.documentElement.classList.remove("is-restoring-scroll");
   document.body.style.top = `-${lockedScrollY}px`;
   document.body.classList.add("is-lightbox-open");
 }
 
-function unlockPageScroll() {
+function unlockPageScroll(onRestored) {
   const scrollYToRestore = lockedScrollY;
+  const stateChangeId = ++scrollLockStateId;
+
+  pageScrollLocked = false;
 
   document.documentElement.classList.add("is-restoring-scroll");
   document.body.classList.remove("is-lightbox-open");
-  document.body.style.top = "";
+  document.body.style.removeProperty("top");
   window.scrollTo(0, scrollYToRestore);
 
   // Reapply the position after layout settles. This prevents Safari and
   // smooth-scroll CSS from leaving the page at the top after the lock ends.
   window.requestAnimationFrame(() => {
+    if (stateChangeId !== scrollLockStateId || pageScrollLocked) {
+      return;
+    }
+
     window.scrollTo(0, scrollYToRestore);
     window.requestAnimationFrame(() => {
+      if (stateChangeId !== scrollLockStateId || pageScrollLocked) {
+        return;
+      }
+
       window.scrollTo(0, scrollYToRestore);
       document.documentElement.classList.remove("is-restoring-scroll");
+      if (onRestored) {
+        onRestored();
+      }
     });
   });
 
@@ -261,7 +284,10 @@ function closeLightbox() {
   lightboxContent.classList.remove("is-changing");
   lightbox.classList.remove("is-open");
   lightbox.setAttribute("aria-hidden", "true");
-  const scrollYToRestore = unlockPageScroll();
+  const focusTarget = lastFocusedElement;
+  const scrollYToRestore = unlockPageScroll(() => {
+    restoreFocusWithoutScrolling(focusTarget, scrollYToRestore);
+  });
 
   clearLightboxTimer = window.setTimeout(
     () => {
@@ -272,8 +298,19 @@ function closeLightbox() {
     prefersReducedMotion() ? 0 : 520
   );
 
-  restoreFocusWithoutScrolling(lastFocusedElement, scrollYToRestore);
 }
+
+window.addEventListener("pageshow", () => {
+  if (lightbox.classList.contains("is-open")) {
+    return;
+  }
+
+  pageScrollLocked = false;
+  scrollLockStateId += 1;
+  document.documentElement.classList.remove("is-restoring-scroll");
+  document.body.classList.remove("is-lightbox-open");
+  document.body.style.removeProperty("top");
+});
 
 photoButtons.forEach((button) => {
   button.addEventListener("click", () => openLightbox(button));
