@@ -1557,6 +1557,122 @@ button {
   }
 }
 
+/* Mobile Works: a calm, single-column photo-book rhythm. */
+@media (max-width: 768px) {
+  .works-section {
+    --mobile-page-padding: clamp(22px, 6vw, 32px);
+    --mobile-photo-gap: clamp(56px, 16vw, 68px);
+    --mobile-caption-gap: 12px;
+    --mobile-large-width: 100%;
+    --mobile-medium-width: 90%;
+    --mobile-quiet-width: 80%;
+    padding-right: var(--mobile-page-padding);
+    padding-left: var(--mobile-page-padding);
+  }
+
+  .works-section .section-heading {
+    margin-bottom: clamp(40px, 12vw, 52px);
+  }
+
+  .works-index {
+    grid-template-columns: 1fr;
+    margin-bottom: clamp(64px, 18vw, 80px);
+  }
+
+  .works-index a {
+    grid-template-columns: auto minmax(0, 1fr);
+    min-height: 0;
+    padding: 18px 0;
+  }
+
+  .works-index a + a {
+    padding-left: 0;
+    border-top: 1px solid rgba(216, 213, 204, 0.74);
+    border-left: 0;
+  }
+
+  .series-heading {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: clamp(48px, 14vw, 60px);
+  }
+
+  .series-number {
+    margin: 0;
+  }
+
+  .work-series + .work-series {
+    margin-top: clamp(96px, 26vw, 120px);
+    padding-top: clamp(48px, 14vw, 64px);
+  }
+
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mobile-photo-gap);
+    grid-template-columns: none;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+
+  .work-series .gallery > .work-card {
+    --mobile-card-width: var(--mobile-large-width);
+    position: relative;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    align-self: stretch;
+    justify-self: auto;
+    width: var(--mobile-card-width);
+    max-width: none;
+    margin: 0 !important;
+    transform: none;
+  }
+
+  .work-series .gallery > .work-card:nth-child(5n + 2) {
+    --mobile-card-width: var(--mobile-medium-width);
+    align-self: center;
+  }
+
+  .work-series .gallery > .work-card:nth-child(5n + 4) {
+    --mobile-card-width: var(--mobile-quiet-width);
+    align-self: flex-end;
+  }
+
+  .work-series .gallery > .work-card[data-size="large"] {
+    --mobile-card-width: var(--mobile-large-width);
+    align-self: stretch;
+  }
+
+  .work-card.is-visible {
+    transform: none;
+  }
+
+  .photo-button,
+  .photo-button:active {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .photo-button img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: none;
+  }
+
+  .work-card figcaption {
+    align-items: baseline;
+    flex-direction: row;
+    width: 100%;
+    margin-top: var(--mobile-caption-gap);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
