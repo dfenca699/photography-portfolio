@@ -1557,26 +1557,32 @@ button {
   }
 }
 
-/* Mobile Works: a calm, single-column photo-book rhythm. */
-@media (max-width: 768px) {
+/* Mobile Works: alternating full-width and two-up contact-sheet modules. */
+@media (max-width: 640px) {
   .works-section {
-    --mobile-page-padding: clamp(22px, 6vw, 32px);
-    --mobile-photo-gap: clamp(56px, 16vw, 68px);
-    --mobile-caption-gap: 12px;
-    --mobile-large-width: 100%;
-    --mobile-medium-width: 90%;
-    --mobile-quiet-width: 80%;
-    padding-right: var(--mobile-page-padding);
-    padding-left: var(--mobile-page-padding);
+    --mobile-text-padding: 12px;
+    --mobile-pair-gap: 2px;
+    --mobile-module-gap: 52px;
+    --mobile-caption-gap: 8px;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .works-section > .section-heading,
+  .works-index,
+  .work-series > .series-heading {
+    margin-right: var(--mobile-text-padding);
+    margin-left: var(--mobile-text-padding);
   }
 
   .works-section .section-heading {
-    margin-bottom: clamp(40px, 12vw, 52px);
+    margin-bottom: 40px;
   }
 
   .works-index {
     grid-template-columns: 1fr;
-    margin-bottom: clamp(64px, 18vw, 80px);
+    width: calc(100% - (var(--mobile-text-padding) * 2));
+    margin-bottom: 64px;
   }
 
   .works-index a {
@@ -1594,7 +1600,7 @@ button {
   .series-heading {
     grid-template-columns: 1fr;
     gap: 12px;
-    margin-bottom: clamp(48px, 14vw, 60px);
+    margin-bottom: 48px;
   }
 
   .series-number {
@@ -1602,46 +1608,63 @@ button {
   }
 
   .work-series + .work-series {
-    margin-top: clamp(96px, 26vw, 120px);
-    padding-top: clamp(48px, 14vw, 64px);
+    margin-top: 96px;
+    padding-top: 48px;
   }
 
   .gallery {
-    display: flex;
-    flex-direction: column;
-    gap: var(--mobile-photo-gap);
-    grid-template-columns: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--mobile-pair-gap);
+    row-gap: var(--mobile-module-gap);
     width: 100%;
     max-width: none;
     margin: 0;
+    padding: 0 var(--mobile-text-padding);
+    counter-reset: mobile-module;
   }
 
   .work-series .gallery > .work-card {
-    --mobile-card-width: var(--mobile-large-width);
     position: relative;
     grid-column: auto !important;
     grid-row: auto !important;
-    align-self: stretch;
-    justify-self: auto;
-    width: var(--mobile-card-width);
+    align-self: start;
+    justify-self: stretch;
+    width: auto;
     max-width: none;
     margin: 0 !important;
     transform: none;
   }
 
-  .work-series .gallery > .work-card:nth-child(5n + 2) {
-    --mobile-card-width: var(--mobile-medium-width);
-    align-self: center;
+  /* Module A: one edge-to-edge main photograph. */
+  .work-series .gallery > .work-card:nth-child(3n + 1) {
+    grid-column: 1 / -1 !important;
+    counter-increment: mobile-module;
   }
 
-  .work-series .gallery > .work-card:nth-child(5n + 4) {
-    --mobile-card-width: var(--mobile-quiet-width);
-    align-self: flex-end;
+  .work-series .gallery > .work-card:nth-child(3n + 1) .photo-button {
+    width: calc(100% + (var(--mobile-text-padding) * 2));
+    margin-left: calc(var(--mobile-text-padding) * -1);
   }
 
-  .work-series .gallery > .work-card[data-size="large"] {
-    --mobile-card-width: var(--mobile-large-width);
-    align-self: stretch;
+  /* Module B: two original-ratio photographs separated by a 2px film gap. */
+  .work-series .gallery > .work-card:nth-child(3n + 2) {
+    grid-column: 1 !important;
+    counter-increment: mobile-module;
+  }
+
+  .work-series .gallery > .work-card:nth-child(3n) {
+    grid-column: 2 !important;
+  }
+
+  /* If a chapter ends with an unpaired photograph, promote it to Module A. */
+  .work-series .gallery > .work-card:last-child:nth-child(3n + 2) {
+    grid-column: 1 / -1 !important;
+  }
+
+  .work-series .gallery > .work-card:last-child:nth-child(3n + 2) .photo-button {
+    width: calc(100% + (var(--mobile-text-padding) * 2));
+    margin-left: calc(var(--mobile-text-padding) * -1);
   }
 
   .work-card.is-visible {
@@ -1663,13 +1686,32 @@ button {
     width: 100%;
     height: auto;
     max-width: none;
+    object-fit: contain;
   }
 
   .work-card figcaption {
-    align-items: baseline;
-    flex-direction: row;
+    display: block;
     width: 100%;
     margin-top: var(--mobile-caption-gap);
+    color: #888888;
+    font-family: Inter, Helvetica, Arial, sans-serif;
+    font-size: 0;
+    line-height: 1;
+    letter-spacing: 0.04em;
+  }
+
+  .work-card figcaption span::after {
+    color: #888888;
+    font-size: 12px;
+    content: counter(mobile-module, decimal-leading-zero);
+  }
+
+  .work-card:nth-child(3n + 2):not(:last-child) figcaption span::after {
+    content: counter(mobile-module, decimal-leading-zero) "A";
+  }
+
+  .work-card:nth-child(3n) figcaption span::after {
+    content: counter(mobile-module, decimal-leading-zero) "B";
   }
 }
 
