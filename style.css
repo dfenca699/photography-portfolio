@@ -736,10 +736,12 @@ button {
   will-change: opacity, transform;
 }
 
-/* Any card explicitly marked large gets commanding hero weight */
+/* Any card explicitly marked large gets commanding hero weight,
+   with a vertical safety lock (82vh equivalent) to prevent top/bottom edge clipping */
 .work-card[data-size="large"] {
   grid-column: 1 / -1;
-  margin-inline: clamp(0px, 4vw, 56px);
+  max-width: min(100%, calc(82vh * 1.45));
+  margin-inline: auto;
 }
 
 /* --- Chapter 1: Monochrome (10 works) --- */
@@ -779,7 +781,8 @@ button {
 #monochrome .work-card:nth-child(8),
 .work-series-monochrome .work-card:nth-child(8) {
   grid-column: 5 / -1;
-  margin-inline: 0;
+  margin-left: auto;
+  margin-right: 0;
 }
 
 /* 09: Chapter climax (large) -> handled by [data-size="large"] */
@@ -817,13 +820,15 @@ button {
 #color .work-card:nth-child(6),
 .work-series-color .work-card:nth-child(6) {
   grid-column: 5 / -1;
-  margin-inline: 0;
+  margin-left: auto;
+  margin-right: 0;
 }
 
-/* 07: Portrait (Vertical) - dignified proportion, 4 cols wide on left */
+/* 07: Portrait (Vertical) - dignified proportion, 4 cols wide on left with vertical safety lock */
 #color .work-card:nth-child(7),
 .work-series-color .work-card:nth-child(7) {
   grid-column: 2 / span 4;
+  max-width: min(100%, calc(78vh * 0.66));
 }
 
 /* 08: Landscape anchored on right, interacting with portrait 07 */
@@ -832,10 +837,12 @@ button {
   grid-column: 7 / -1;
 }
 
-/* 09: Portrait (Vertical) - placed on right side, echoing portrait 07 */
+/* 09: Portrait (Vertical) - placed on right side, echoing portrait 07 with vertical safety lock */
 #color .work-card:nth-child(9),
 .work-series-color .work-card:nth-child(9) {
   grid-column: 8 / span 4;
+  max-width: min(100%, calc(78vh * 0.66));
+  margin-left: auto;
 }
 
 /* 10: Left-aligned landscape */
@@ -1057,7 +1064,7 @@ button {
 .lightbox-content {
   position: relative;
   z-index: 1;
-  width: min(1180px, 100%);
+  width: min(1600px, 96vw);
   margin: 0;
   opacity: 0;
   transform: translateY(18px) scale(0.985);
@@ -1077,7 +1084,8 @@ button {
 }
 
 .lightbox-content img {
-  max-height: 84svh;
+  max-height: 94svh;
+  max-width: 96vw;
   margin: 0 auto;
   object-fit: contain;
   background: #111111;
