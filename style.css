@@ -25,9 +25,7 @@
 }
 
 html {
-  min-height: -webkit-fill-available;
-  min-height: 100dvh;
-  overflow-x: clip;
+  min-height: 100%;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -39,10 +37,9 @@ html.is-restoring-scroll {
 
 body {
   position: relative;
-  min-height: -webkit-fill-available;
+  min-height: 100vh;
   min-height: 100dvh;
   margin: 0;
-  overflow-x: clip;
   background-color: var(--color-page);
   color: var(--color-ink);
   font-family: var(--font-main);
@@ -50,7 +47,6 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
-  overscroll-behavior-x: none;
 }
 
 body.is-lightbox-open {
@@ -740,62 +736,129 @@ button {
   will-change: opacity, transform;
 }
 
-.work-card:nth-child(10n + 1) {
-  grid-column: 1 / span 7;
+/* Any card explicitly marked large gets commanding hero weight */
+.work-card[data-size="large"] {
+  grid-column: 1 / -1;
+  margin-inline: clamp(0px, 4vw, 56px);
 }
 
-.work-card:nth-child(10n + 2) {
-  grid-column: 8 / -1;
+/* --- Chapter 1: Monochrome (10 works) --- */
+/* 01: Opening climax -> handled by [data-size="large"] */
+
+/* 02: Left-aligned medium landscape with right white space */
+#monochrome .work-card:nth-child(2),
+.work-series-monochrome .work-card:nth-child(2) {
+  grid-column: 1 / span 6;
 }
 
-.work-card:nth-child(10n + 3) {
-  grid-column: 2 / span 4;
-}
-
-.work-card:nth-child(10n + 4) {
+/* 03: Right-aligned medium landscape, creating a stepping diagonal from 02 */
+#monochrome .work-card:nth-child(3),
+.work-series-monochrome .work-card:nth-child(3) {
   grid-column: 7 / -1;
 }
 
-.work-card:nth-child(10n + 5) {
-  grid-column: 1 / -1;
-  margin-inline: clamp(0px, 5vw, 84px);
+/* 04 & 05: Asymmetric two-up arrangement with generous middle silence */
+#monochrome .work-card:nth-child(4),
+.work-series-monochrome .work-card:nth-child(4) {
+  grid-column: 2 / span 5;
 }
-
-.work-card:nth-child(10n + 6) {
-  grid-column: 1 / span 5;
-}
-
-.work-card:nth-child(10n + 7) {
-  grid-column: 6 / -1;
-}
-
-.work-card:nth-child(10n + 8) {
-  grid-column: 1 / span 7;
-}
-
-.work-card:nth-child(10n + 9) {
+#monochrome .work-card:nth-child(5),
+.work-series-monochrome .work-card:nth-child(5) {
   grid-column: 8 / -1;
 }
 
-.work-card:nth-child(10n) {
-  grid-column: 2 / -2;
+/* 06: Mid-chapter climax (large) -> handled by [data-size="large"] */
+
+/* 07: Left side quiet pause */
+#monochrome .work-card:nth-child(7),
+.work-series-monochrome .work-card:nth-child(7) {
+  grid-column: 2 / span 6;
 }
 
+/* 08: Large right-anchored hero */
+#monochrome .work-card:nth-child(8),
+.work-series-monochrome .work-card:nth-child(8) {
+  grid-column: 5 / -1;
+  margin-inline: 0;
+}
+
+/* 09: Chapter climax (large) -> handled by [data-size="large"] */
+
+/* 10: Outro / Echo - intimate, restrained size, surrounded by white wall */
+#monochrome .work-card:nth-child(10),
+.work-series-monochrome .work-card:nth-child(10) {
+  grid-column: 6 / span 5;
+}
+
+/* --- Chapter 2: Color (14 works) --- */
+/* 01: Opening climax -> handled by [data-size="large"] */
+
+/* 02: Right-aligned landscape */
+#color .work-card:nth-child(2),
+.work-series-color .work-card:nth-child(2) {
+  grid-column: 7 / -1;
+}
+
+/* 03: Left-aligned landscape */
+#color .work-card:nth-child(3),
+.work-series-color .work-card:nth-child(3) {
+  grid-column: 1 / span 6;
+}
+
+/* 04: Large climax -> handled by [data-size="large"] */
+
+/* 05: Left-anchored landscape */
+#color .work-card:nth-child(5),
+.work-series-color .work-card:nth-child(5) {
+  grid-column: 2 / span 6;
+}
+
+/* 06: Large right-anchored hero */
+#color .work-card:nth-child(6),
+.work-series-color .work-card:nth-child(6) {
+  grid-column: 5 / -1;
+  margin-inline: 0;
+}
+
+/* 07: Portrait (Vertical) - dignified proportion, 4 cols wide on left */
+#color .work-card:nth-child(7),
+.work-series-color .work-card:nth-child(7) {
+  grid-column: 2 / span 4;
+}
+
+/* 08: Landscape anchored on right, interacting with portrait 07 */
+#color .work-card:nth-child(8),
+.work-series-color .work-card:nth-child(8) {
+  grid-column: 7 / -1;
+}
+
+/* 09: Portrait (Vertical) - placed on right side, echoing portrait 07 */
+#color .work-card:nth-child(9),
+.work-series-color .work-card:nth-child(9) {
+  grid-column: 8 / span 4;
+}
+
+/* 10: Left-aligned landscape */
+#color .work-card:nth-child(10),
+.work-series-color .work-card:nth-child(10) {
+  grid-column: 1 / span 6;
+}
+
+/* 11: Right-aligned landscape */
+#color .work-card:nth-child(11),
 .work-series-color .work-card:nth-child(11) {
-  grid-column: 2 / span 3;
+  grid-column: 7 / -1;
 }
 
-.work-series-color .work-card:nth-child(12) {
-  grid-column: 6 / -1;
-}
+/* 12: Large climax -> handled by [data-size="large"] */
 
+/* 13: Quiet pause before finale */
+#color .work-card:nth-child(13),
 .work-series-color .work-card:nth-child(13) {
-  grid-column: 1 / span 7;
+  grid-column: 2 / span 5;
 }
 
-.work-series-color .work-card:nth-child(14) {
-  grid-column: 8 / -1;
-}
+/* 14: Grand finale (large) -> handled by [data-size="large"] */
 
 .work-card.is-visible {
   opacity: 1;
@@ -1557,15 +1620,17 @@ button {
   }
 }
 
-/* Mobile Works: alternating full-width and two-up contact-sheet modules. */
+/* Mobile Works: four-module contact-sheet system with global linear numbering. */
 @media (max-width: 640px) {
   .works-section {
     --mobile-text-padding: 12px;
-    --mobile-pair-gap: 2px;
+    --mobile-grid-gap: 2px;
     --mobile-module-gap: 52px;
     --mobile-caption-gap: 8px;
     padding-right: 0;
     padding-left: 0;
+    background: #f9f9f8;
+    counter-reset: mobile-photo;
   }
 
   .works-section > .section-heading,
@@ -1614,14 +1679,13 @@ button {
 
   .gallery {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: var(--mobile-pair-gap);
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    column-gap: var(--mobile-grid-gap);
     row-gap: var(--mobile-module-gap);
     width: 100%;
     max-width: none;
     margin: 0;
     padding: 0 var(--mobile-text-padding);
-    counter-reset: mobile-module;
   }
 
   .work-series .gallery > .work-card {
@@ -1634,37 +1698,59 @@ button {
     max-width: none;
     margin: 0 !important;
     transform: none;
+    counter-increment: mobile-photo;
   }
 
-  /* Module A: one edge-to-edge main photograph. */
-  .work-series .gallery > .work-card:nth-child(3n + 1) {
+  /* Module A: edge-to-edge main photographs. */
+  .work-series .gallery > .work-card:nth-child(1),
+  .work-series .gallery > .work-card:nth-child(7),
+  .work-series .gallery > .work-card:nth-child(13) {
     grid-column: 1 / -1 !important;
-    counter-increment: mobile-module;
   }
 
-  .work-series .gallery > .work-card:nth-child(3n + 1) .photo-button {
+  .work-series .gallery > .work-card:nth-child(1) .photo-button,
+  .work-series .gallery > .work-card:nth-child(7) .photo-button,
+  .work-series .gallery > .work-card:nth-child(13) .photo-button {
     width: calc(100% + (var(--mobile-text-padding) * 2));
     margin-left: calc(var(--mobile-text-padding) * -1);
   }
 
-  /* Module B: two original-ratio photographs separated by a 2px film gap. */
-  .work-series .gallery > .work-card:nth-child(3n + 2) {
-    grid-column: 1 !important;
-    counter-increment: mobile-module;
+  /* Module B: equal two-up contact-sheet pairs. */
+  .work-series .gallery > .work-card:nth-child(2),
+  .work-series .gallery > .work-card:nth-child(9) {
+    grid-column: 1 / span 5 !important;
   }
 
-  .work-series .gallery > .work-card:nth-child(3n) {
-    grid-column: 2 !important;
+  .work-series .gallery > .work-card:nth-child(3),
+  .work-series .gallery > .work-card:nth-child(10) {
+    grid-column: 6 / -1 !important;
   }
 
-  /* If a chapter ends with an unpaired photograph, promote it to Module A. */
-  .work-series .gallery > .work-card:last-child:nth-child(3n + 2) {
-    grid-column: 1 / -1 !important;
+  /* Module C: a single photograph with deliberate negative space. */
+  .work-series .gallery > .work-card:nth-child(4),
+  .work-series .gallery > .work-card:nth-child(14) {
+    grid-column: 1 / span 7 !important;
   }
 
-  .work-series .gallery > .work-card:last-child:nth-child(3n + 2) .photo-button {
-    width: calc(100% + (var(--mobile-text-padding) * 2));
-    margin-left: calc(var(--mobile-text-padding) * -1);
+  .work-series .gallery > .work-card:nth-child(8) {
+    grid-column: 4 / -1 !important;
+  }
+
+  /* Module D: asymmetric 30/70, then a reversed 70/30 variation. */
+  .work-series .gallery > .work-card:nth-child(5) {
+    grid-column: 1 / span 3 !important;
+  }
+
+  .work-series .gallery > .work-card:nth-child(6) {
+    grid-column: 4 / -1 !important;
+  }
+
+  .work-series .gallery > .work-card:nth-child(11) {
+    grid-column: 1 / span 7 !important;
+  }
+
+  .work-series .gallery > .work-card:nth-child(12) {
+    grid-column: 8 / -1 !important;
   }
 
   .work-card.is-visible {
@@ -1703,15 +1789,7 @@ button {
   .work-card figcaption span::after {
     color: #888888;
     font-size: 12px;
-    content: counter(mobile-module, decimal-leading-zero);
-  }
-
-  .work-card:nth-child(3n + 2):not(:last-child) figcaption span::after {
-    content: counter(mobile-module, decimal-leading-zero) "A";
-  }
-
-  .work-card:nth-child(3n) figcaption span::after {
-    content: counter(mobile-module, decimal-leading-zero) "B";
+    content: counter(mobile-photo, decimal-leading-zero);
   }
 }
 
