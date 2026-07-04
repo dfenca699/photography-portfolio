@@ -1,4 +1,4 @@
-# kyokaketsu Photography Portfolio
+# kyokaketsu Photography Portfolio 
 
 这是一个简洁的个人摄影作品集网站，使用纯 HTML、CSS 和 JavaScript 制作，适合部署到 GitHub Pages。
 
