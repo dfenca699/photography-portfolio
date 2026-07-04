@@ -736,92 +736,113 @@ button {
   will-change: opacity, transform;
 }
 
-/* Any card explicitly marked large gets commanding hero weight,
-   with a vertical safety lock (82vh equivalent) to prevent top/bottom edge clipping */
+/* Any card explicitly marked large gets commanding museum pedestal weight:
+   It spans the full width of the container with an elegant matboard background card,
+   while the photo itself has a vertical safety lock (82vh) to prevent edge clipping! */
 .work-card[data-size="large"] {
   grid-column: 1 / -1;
-  max-width: min(100%, calc(82vh * 1.45));
-  margin-inline: auto;
+  width: 100%;
+  max-width: 100%;
+  margin: 20px 0 clamp(48px, 8vw, 96px);
+  padding: clamp(28px, 5vw, 64px);
+  background: #ebe9e1;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+  box-shadow: 0 20px 50px rgba(20, 20, 18, 0.045);
+}
+
+.work-card[data-size="large"] .photo-button {
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+  background: transparent;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+.work-card[data-size="large"] .photo-button img {
+  max-height: 82vh;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+}
+
+.work-card[data-size="large"] figcaption {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  justify-content: space-between;
+  font-size: 0.76rem;
+  color: rgba(115, 113, 104, 0.88);
 }
 
 /* --- Chapter 1: Monochrome (10 works) --- */
-/* 01: Opening climax -> handled by [data-size="large"] */
+/* 01: Opening climax -> handled by [data-size="large"] museum pedestal */
 
-/* 02: Left-aligned medium landscape with right white space */
+/* 02 & 03: Asymmetric pair (60% dominant left + 30% intimate right with 1-col white wall) */
 #monochrome .work-card:nth-child(2),
 .work-series-monochrome .work-card:nth-child(2) {
-  grid-column: 1 / span 6;
+  grid-column: 1 / span 7;
 }
-
-/* 03: Right-aligned medium landscape, creating a stepping diagonal from 02 */
 #monochrome .work-card:nth-child(3),
 .work-series-monochrome .work-card:nth-child(3) {
-  grid-column: 7 / -1;
+  grid-column: 9 / span 4;
 }
 
-/* 04 & 05: Asymmetric two-up arrangement with generous middle silence */
+/* 04 & 05: Left indented intimate print + right aligned medium print */
 #monochrome .work-card:nth-child(4),
 .work-series-monochrome .work-card:nth-child(4) {
-  grid-column: 2 / span 5;
+  grid-column: 2 / span 4;
 }
 #monochrome .work-card:nth-child(5),
 .work-series-monochrome .work-card:nth-child(5) {
-  grid-column: 8 / -1;
+  grid-column: 7 / span 6;
 }
 
-/* 06: Mid-chapter climax (large) -> handled by [data-size="large"] */
+/* 06: Mid-chapter climax (large) -> handled by [data-size="large"] museum pedestal */
 
-/* 07: Left side quiet pause */
+/* 07 & 08: Two intimate prints separated by a 2-column gallery white wall */
 #monochrome .work-card:nth-child(7),
 .work-series-monochrome .work-card:nth-child(7) {
-  grid-column: 2 / span 6;
+  grid-column: 1 / span 5;
 }
-
-/* 08: Large right-anchored hero */
 #monochrome .work-card:nth-child(8),
 .work-series-monochrome .work-card:nth-child(8) {
-  grid-column: 5 / -1;
-  margin-left: auto;
-  margin-right: 0;
+  grid-column: 8 / span 5;
 }
 
-/* 09: Chapter climax (large) -> handled by [data-size="large"] */
+/* 09: Chapter climax (large) -> handled by [data-size="large"] museum pedestal */
 
-/* 10: Outro / Echo - intimate, restrained size, surrounded by white wall */
+/* 10: Outro / Echo - intimate, restrained size, surrounded by vast poetic white space */
 #monochrome .work-card:nth-child(10),
 .work-series-monochrome .work-card:nth-child(10) {
-  grid-column: 6 / span 5;
+  grid-column: 5 / span 4;
 }
 
 /* --- Chapter 2: Color (14 works) --- */
-/* 01: Opening climax -> handled by [data-size="large"] */
+/* 01: Opening climax -> handled by [data-size="large"] museum pedestal */
 
-/* 02: Right-aligned landscape */
+/* 02 & 03: Asymmetric pair (Right aligned dominant + Left aligned intimate) */
 #color .work-card:nth-child(2),
 .work-series-color .work-card:nth-child(2) {
-  grid-column: 7 / -1;
+  grid-column: 7 / span 6;
 }
-
-/* 03: Left-aligned landscape */
 #color .work-card:nth-child(3),
 .work-series-color .work-card:nth-child(3) {
-  grid-column: 1 / span 6;
+  grid-column: 1 / span 5;
 }
 
-/* 04: Large climax -> handled by [data-size="large"] */
+/* 04: Large climax -> handled by [data-size="large"] museum pedestal */
 
-/* 05: Left-anchored landscape */
+/* 05 & 06: Left intimate + Right dominant */
 #color .work-card:nth-child(5),
 .work-series-color .work-card:nth-child(5) {
-  grid-column: 2 / span 6;
+  grid-column: 2 / span 4;
 }
-
-/* 06: Large right-anchored hero */
 #color .work-card:nth-child(6),
 .work-series-color .work-card:nth-child(6) {
-  grid-column: 5 / -1;
-  margin-left: auto;
-  margin-right: 0;
+  grid-column: 7 / span 6;
 }
 
 /* 07: Portrait (Vertical) - dignified proportion, 4 cols wide on left with vertical safety lock */
@@ -834,30 +855,30 @@ button {
 /* 08: Landscape anchored on right, interacting with portrait 07 */
 #color .work-card:nth-child(8),
 .work-series-color .work-card:nth-child(8) {
-  grid-column: 7 / -1;
+  grid-column: 7 / span 6;
 }
 
 /* 09: Portrait (Vertical) - placed on right side, echoing portrait 07 with vertical safety lock */
 #color .work-card:nth-child(9),
 .work-series-color .work-card:nth-child(9) {
-  grid-column: 8 / span 4;
+  grid-column: 9 / span 4;
   max-width: min(100%, calc(78vh * 0.66));
   margin-left: auto;
 }
 
-/* 10: Left-aligned landscape */
+/* 10: Left-aligned dominant landscape */
 #color .work-card:nth-child(10),
 .work-series-color .work-card:nth-child(10) {
-  grid-column: 1 / span 6;
+  grid-column: 1 / span 7;
 }
 
-/* 11: Right-aligned landscape */
+/* 11: Centered landscape pause */
 #color .work-card:nth-child(11),
 .work-series-color .work-card:nth-child(11) {
-  grid-column: 7 / -1;
+  grid-column: 3 / span 6;
 }
 
-/* 12: Large climax -> handled by [data-size="large"] */
+/* 12: Large climax -> handled by [data-size="large"] museum pedestal */
 
 /* 13: Quiet pause before finale */
 #color .work-card:nth-child(13),
@@ -865,7 +886,7 @@ button {
   grid-column: 2 / span 5;
 }
 
-/* 14: Grand finale (large) -> handled by [data-size="large"] */
+/* 14: Grand finale (large) -> handled by [data-size="large"] museum pedestal */
 
 .work-card.is-visible {
   opacity: 1;
