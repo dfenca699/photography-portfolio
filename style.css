@@ -1645,7 +1645,7 @@ button {
 
   .work-series .gallery > .work-card {
     position: relative;
-    grid-column: auto !important;
+    grid-column: span 5 !important;
     grid-row: auto !important;
     align-self: start;
     justify-self: stretch;
@@ -1654,58 +1654,6 @@ button {
     margin: 0 !important;
     transform: none;
     counter-increment: mobile-photo;
-  }
-
-  /* Module A: edge-to-edge main photographs. */
-  .work-series .gallery > .work-card:nth-child(1),
-  .work-series .gallery > .work-card:nth-child(7),
-  .work-series .gallery > .work-card:nth-child(13) {
-    grid-column: 1 / -1 !important;
-  }
-
-  .work-series .gallery > .work-card:nth-child(1) .photo-button,
-  .work-series .gallery > .work-card:nth-child(7) .photo-button,
-  .work-series .gallery > .work-card:nth-child(13) .photo-button {
-    width: calc(100% + (var(--mobile-text-padding) * 2));
-    margin-left: calc(var(--mobile-text-padding) * -1);
-  }
-
-  /* Module B: equal two-up contact-sheet pairs. */
-  .work-series .gallery > .work-card:nth-child(2),
-  .work-series .gallery > .work-card:nth-child(9) {
-    grid-column: 1 / span 5 !important;
-  }
-
-  .work-series .gallery > .work-card:nth-child(3),
-  .work-series .gallery > .work-card:nth-child(10) {
-    grid-column: 6 / -1 !important;
-  }
-
-  /* Module C: a single photograph with deliberate negative space. */
-  .work-series .gallery > .work-card:nth-child(4),
-  .work-series .gallery > .work-card:nth-child(14) {
-    grid-column: 1 / span 7 !important;
-  }
-
-  .work-series .gallery > .work-card:nth-child(8) {
-    grid-column: 4 / -1 !important;
-  }
-
-  /* Module D: asymmetric 30/70, then a reversed 70/30 variation. */
-  .work-series .gallery > .work-card:nth-child(5) {
-    grid-column: 1 / span 3 !important;
-  }
-
-  .work-series .gallery > .work-card:nth-child(6) {
-    grid-column: 4 / -1 !important;
-  }
-
-  .work-series .gallery > .work-card:nth-child(11) {
-    grid-column: 1 / span 7 !important;
-  }
-
-  .work-series .gallery > .work-card:nth-child(12) {
-    grid-column: 8 / -1 !important;
   }
 
   .work-card.is-visible {
