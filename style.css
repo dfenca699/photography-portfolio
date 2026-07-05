@@ -529,7 +529,7 @@ button {
 }
 
 .hero .eyebrow {
-  grid-column: 1 / span 3;
+  grid-column: 1 / span 6;
   grid-row: 1;
   margin: 0;
   color: #888888;
@@ -538,7 +538,7 @@ button {
 }
 
 .hero h1 {
-  grid-column: 1 / -1;
+  grid-column: 1 / span 7;
   grid-row: 2;
   align-self: center;
   margin: 32px 0 0;
@@ -551,11 +551,11 @@ button {
 }
 
 .hero-line {
-  grid-column: 8 / -1;
+  grid-column: 1 / span 6;
   grid-row: 3;
-  justify-self: end;
+  justify-self: start;
   max-width: 360px;
-  margin: 0;
+  margin: 24px 0 0;
   color: #4a4a4a;
   font-family: var(--font-main);
   font-size: 0.9rem;
@@ -563,6 +563,59 @@ button {
   font-weight: 300;
   line-height: 1.75;
   text-align: left;
+}
+
+.hero-cover {
+  grid-column: 8 / -1;
+  grid-row: 1 / -1;
+  align-self: center;
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 420px;
+  margin: 0;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(28px);
+  animation: heroTextIn 1600ms var(--ease-premium) 300ms forwards;
+}
+
+.hero-cover-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-line);
+  box-shadow: 0 24px 64px rgba(11, 11, 10, 0.08);
+}
+
+.hero-cover-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.08);
+  transition: transform 1200ms var(--ease-premium), filter 1200ms var(--ease-premium);
+}
+
+.hero-cover:hover .hero-cover-frame img {
+  transform: scale(1.04);
+  filter: grayscale(0%) contrast(1.02);
+}
+
+.hero-cover-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-muted);
+  font-family: var(--font-meta);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-top: 1px solid var(--color-line);
+  padding-top: 12px;
 }
 
 .section {
@@ -1497,7 +1550,9 @@ button {
   }
 
   .hero-inner {
+    grid-template-rows: auto auto auto auto;
     justify-items: start;
+    row-gap: 20px;
   }
 
   .hero .eyebrow,
@@ -1514,10 +1569,18 @@ button {
   }
 
   .hero-line {
-    grid-column: 4 / -1;
-    max-width: 210px;
-    margin-top: 34px;
+    grid-column: 1 / -1;
+    max-width: 280px;
+    margin-top: 8px;
     font-size: 0.8rem;
+  }
+
+  .hero-cover {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    justify-self: center;
+    margin-top: 24px;
+    max-width: 320px;
   }
 }
 
@@ -1528,7 +1591,7 @@ button {
   }
 
   .hero-line {
-    grid-column: 3 / -1;
+    grid-column: 1 / -1;
   }
 }
 
