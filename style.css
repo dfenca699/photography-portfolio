@@ -800,36 +800,9 @@ button {
   margin-inline: auto;
 }
 
-/* --- Chapter 1: Monochrome (10 works) --- */
-/* All 10 works form 5 rows of balanced 6:6 diptychs (equal 1:1 weight, flush to outer walls).
-   The default .work-card (span 6) handles this automatically with zero jagged edges! */
-
-/* --- Chapter 2: Color (14 works) --- */
-/* Works 01-06 and 11-14 form balanced 6:6 diptychs handled automatically by default .work-card (span 6). */
-
-/* Row 4 (Works 07 & 08): 5:7 Golden Ratio Diptych (5 + 7 = 12 cols, flush to outer walls) */
-#color .work-card:nth-child(7),
-.work-series-color .work-card:nth-child(7) {
-  grid-column: 1 / span 5;
-  max-width: min(100%, calc(78vh * 0.68));
-}
-#color .work-card:nth-child(8),
-.work-series-color .work-card:nth-child(8) {
-  grid-column: 6 / span 7;
-}
-
-/* Row 5 (Works 09 & 10): 7:5 Golden Ratio Diptych (7 + 5 = 12 cols, flush to outer walls) */
-#color .work-card:nth-child(9),
-.work-series-color .work-card:nth-child(9) {
-  grid-column: 8 / span 5;
-  max-width: min(100%, calc(78vh * 0.68));
-  margin-left: auto;
-}
-#color .work-card:nth-child(10),
-.work-series-color .work-card:nth-child(10) {
-  grid-column: 1 / span 7;
-  grid-row: 6;
-}
+/* --- Chapter 1: Monochrome (10 works) & Chapter 2: Color (14 works) --- */
+/* All 24 works form pure, equal-weight 6:6 diptychs (1:1 equal width, span 6).
+   Every single row is neatly balanced and flush to outer walls with zero jagged edges! */
 
 .work-card.is-visible {
   opacity: 1;
