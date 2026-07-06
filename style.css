@@ -801,8 +801,20 @@ button {
 }
 
 /* --- Chapter 1: Monochrome (10 works) & Chapter 2: Color (14 works) --- */
-/* All 24 works form pure, equal-weight 6:6 diptychs (1:1 equal width, span 6).
-   Every single row is neatly balanced and flush to outer walls with zero jagged edges! */
+/* Option C: The Refined Golden Ratio Diptych Rhythm (主次对偶·黄金比例循环)
+   Odd rows (1, 3, 5...): Equal 6:6 diptychs (balanced 1:1 weight).
+   Even rows (2, 4, 6...): Golden 5:7 diptychs (left smaller intro, right larger protagonist).
+   All works form a strict 2-row cycle without any full-width cards or monotonous repetition! */
+.work-series .gallery > .work-card:nth-child(4n + 1),
+.work-series .gallery > .work-card:nth-child(4n + 2) {
+  grid-column: span 6 !important;
+}
+.work-series .gallery > .work-card:nth-child(4n + 3) {
+  grid-column: 1 / span 5 !important;
+}
+.work-series .gallery > .work-card:nth-child(4n) {
+  grid-column: 6 / span 7 !important;
+}
 
 .work-card.is-visible {
   opacity: 1;
