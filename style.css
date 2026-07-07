@@ -769,77 +769,46 @@ button {
   line-height: 1.85;
 }
 
-/* Gallery: MoMA-inspired horizontal / vertical dispersed flow. */
+/* Gallery: vertical MoMA-inspired scattered wall. */
 .gallery {
-  max-width: none;
-  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(6rem, 10vh, 12rem) clamp(3rem, 5vw, 6rem);
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
 }
 
 .work-series .gallery {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: stretch;
-  min-height: 82vh;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: clamp(1rem, 3vw, 2rem) max(7vw, 40px) clamp(1.4rem, 3vw, 2.4rem);
-  scrollbar-color: rgba(69, 68, 63, 0.24) transparent;
-  scrollbar-width: thin;
-  scroll-snap-type: x proximity;
-  -webkit-overflow-scrolling: touch;
-}
-
-.work-series .gallery::-webkit-scrollbar {
-  height: 4px;
-}
-
-.work-series .gallery::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.work-series .gallery::-webkit-scrollbar-thumb {
-  background: rgba(69, 68, 63, 0.18);
-  border-radius: 999px;
+  overflow: visible;
 }
 
 .work-card {
-  flex: 0 0 auto;
-  height: 58vh;
   margin: 0;
-  margin-right: clamp(5rem, 8vw, 8.5rem);
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 860ms var(--ease-premium),
     transform 860ms var(--ease-premium);
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
-  scroll-snap-align: center;
 }
 
 .work-card:nth-child(4n + 1) {
-  height: 70vh;
-  align-self: center;
+  grid-column: 1 / span 7;
 }
 
 .work-card:nth-child(4n + 2) {
-  height: 48vh;
-  align-self: flex-start;
+  grid-column: 9 / span 4;
   margin-top: 5vh;
 }
 
 .work-card:nth-child(4n + 3) {
-  height: 38vh;
-  align-self: flex-end;
-  margin-bottom: 5vh;
+  grid-column: 2 / span 5;
 }
 
 .work-card:nth-child(4n) {
-  height: 58vh;
-  align-self: center;
-}
-
-.work-card:last-child {
-  margin-right: max(7vw, 40px);
+  grid-column: 7 / span 6;
+  margin-top: -3vh;
 }
 
 .work-card.is-visible {
@@ -849,8 +818,8 @@ button {
 
 .photo-button {
   display: block;
-  width: auto;
-  height: 100%;
+  width: 100%;
+  height: auto;
   padding: 0;
   overflow: visible;
   cursor: zoom-in;
@@ -865,9 +834,9 @@ button {
 
 .photo-button img {
   display: block;
-  width: auto;
-  max-width: none;
-  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
   filter: saturate(0.94) contrast(1.02);
   transform: scale(1);
   transition: transform 720ms var(--ease-premium),
@@ -1600,54 +1569,41 @@ button {
   }
 }
 
-/* Mobile Works: vertical dispersed reading flow. */
+/* Mobile Works: keep the same vertical wall logic, with safer column spans. */
 @media (max-width: 768px) {
   .work-series .gallery {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: stretch;
-    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: clamp(4.75rem, 13vw, 6.5rem) 0;
     width: 100%;
     max-width: none;
     margin: 0;
     padding: 0;
-    overflow-x: visible;
-    overflow-y: visible;
-    scroll-snap-type: none;
   }
 
   .work-series .gallery > .work-card {
-    flex: none;
-    width: 100%;
-    height: auto;
+    width: auto;
     max-width: none;
-    margin: 0 0 6rem;
-    align-self: auto;
-    scroll-snap-align: none;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
-  .work-series .gallery > .work-card:nth-child(4n + 1),
-  .work-series .gallery > .work-card:nth-child(4n) {
-    width: 100%;
-    margin-right: 0;
-    margin-left: 0;
+  .work-series .gallery > .work-card:nth-child(4n + 1) {
+    grid-column: 1 / span 12;
   }
 
   .work-series .gallery > .work-card:nth-child(4n + 2) {
-    width: 60%;
-    margin-right: 0;
-    margin-left: auto;
+    grid-column: 6 / span 7;
+    margin-top: 2vh;
   }
 
   .work-series .gallery > .work-card:nth-child(4n + 3) {
-    width: 75%;
-    margin-right: auto;
-    margin-left: 0;
+    grid-column: 1 / span 9;
   }
 
-  .work-series .gallery > .work-card:last-child {
-    margin-bottom: 0;
+  .work-series .gallery > .work-card:nth-child(4n) {
+    grid-column: 3 / span 10;
+    margin-top: -1vh;
   }
 
   .work-card.is-visible {
