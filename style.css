@@ -769,34 +769,77 @@ button {
   line-height: 1.85;
 }
 
-/* Gallery: a calm 12-column system built from equal 6:6 diptychs. */
+/* Gallery: MoMA-inspired horizontal / vertical dispersed flow. */
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  max-width: 1500px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
 }
 
 .work-series .gallery {
-  gap: clamp(3.5rem, 6vw, 6rem) clamp(3rem, 5vw, 5.5rem);
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  min-height: 82vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: clamp(1rem, 3vw, 2rem) max(7vw, 40px) clamp(1.4rem, 3vw, 2.4rem);
+  scrollbar-color: rgba(69, 68, 63, 0.24) transparent;
+  scrollbar-width: thin;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+
+.work-series .gallery::-webkit-scrollbar {
+  height: 4px;
+}
+
+.work-series .gallery::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.work-series .gallery::-webkit-scrollbar-thumb {
+  background: rgba(69, 68, 63, 0.18);
+  border-radius: 999px;
 }
 
 .work-card {
-  grid-column: span 6 !important;
-  align-self: start;
+  flex: 0 0 auto;
+  height: 58vh;
   margin: 0;
+  margin-right: clamp(5rem, 8vw, 8.5rem);
   opacity: 0;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.06);
   transform: translateY(28px);
   transition: opacity 860ms var(--ease-premium),
     transform 860ms var(--ease-premium);
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
+  scroll-snap-align: center;
 }
 
-/* Monochrome and Color both use stable, equal-weight diptychs. */
-.work-series .gallery > .work-card {
-  grid-column: span 6 !important;
+.work-card:nth-child(4n + 1) {
+  height: 70vh;
+  align-self: center;
+}
+
+.work-card:nth-child(4n + 2) {
+  height: 48vh;
+  align-self: flex-start;
+  margin-top: 5vh;
+}
+
+.work-card:nth-child(4n + 3) {
+  height: 38vh;
+  align-self: flex-end;
+  margin-bottom: 5vh;
+}
+
+.work-card:nth-child(4n) {
+  height: 58vh;
+  align-self: center;
+}
+
+.work-card:last-child {
+  margin-right: max(7vw, 40px);
 }
 
 .work-card.is-visible {
@@ -805,23 +848,26 @@ button {
 }
 
 .photo-button {
-  width: 100%;
+  display: block;
+  width: auto;
+  height: 100%;
   padding: 0;
-  overflow: hidden;
+  overflow: visible;
   cursor: zoom-in;
-  background: #e2dfd7;
+  background: transparent;
   border: 0;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.06);
   transform: translateZ(0);
-  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 420ms var(--ease-calm), transform 420ms var(--ease-premium);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
 }
 
 .photo-button img {
-  width: 100%;
-  height: auto;
+  display: block;
+  width: auto;
+  max-width: none;
+  height: 100%;
   filter: saturate(0.94) contrast(1.02);
   transform: scale(1);
   transition: transform 720ms var(--ease-premium),
@@ -834,10 +880,8 @@ button {
 }
 
 .photo-button:active {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
-  transform: scale(0.96);
-  transition: transform 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    box-shadow 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: scale(0.985);
+  transition: transform 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .photo-button:focus-visible,
@@ -849,16 +893,13 @@ button {
 @media (hover: hover) and (pointer: fine) {
   .photo-button:hover,
   .photo-button:focus-visible {
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
-    transform: translateY(-6px);
-    transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(-3px);
   }
 
   .photo-button:hover img,
   .photo-button:focus-visible img {
     opacity: 0.96;
     filter: saturate(1) contrast(1.06);
-    transform: scale(1.03);
   }
 
   .gallery:has(.photo-button:hover) .work-card:not(:has(.photo-button:hover)) .photo-button {
@@ -1524,7 +1565,7 @@ button {
   }
 
   .photo-button:active {
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+    box-shadow: none;
     transform: scale(0.985);
   }
 
@@ -1559,7 +1600,100 @@ button {
   }
 }
 
-/* Mobile Works: four-module contact-sheet system with global linear numbering. */
+/* Mobile Works: vertical dispersed reading flow. */
+@media (max-width: 768px) {
+  .work-series .gallery {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    min-height: 0;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    overflow-x: visible;
+    overflow-y: visible;
+    scroll-snap-type: none;
+  }
+
+  .work-series .gallery > .work-card {
+    flex: none;
+    width: 100%;
+    height: auto;
+    max-width: none;
+    margin: 0 0 6rem;
+    align-self: auto;
+    scroll-snap-align: none;
+  }
+
+  .work-series .gallery > .work-card:nth-child(4n + 1),
+  .work-series .gallery > .work-card:nth-child(4n) {
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .work-series .gallery > .work-card:nth-child(4n + 2) {
+    width: 60%;
+    margin-right: 0;
+    margin-left: auto;
+  }
+
+  .work-series .gallery > .work-card:nth-child(4n + 3) {
+    width: 75%;
+    margin-right: auto;
+    margin-left: 0;
+  }
+
+  .work-series .gallery > .work-card:last-child {
+    margin-bottom: 0;
+  }
+
+  .work-card.is-visible {
+    transform: none;
+  }
+
+  .photo-button,
+  .photo-button:active {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: none;
+    margin: 0;
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .photo-button img {
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .work-card figcaption {
+    display: flex;
+    justify-content: flex-start;
+    gap: 18px;
+    width: 100%;
+    margin-top: 11px;
+    color: rgba(115, 113, 104, 0.72);
+    font-family: var(--font-meta);
+    font-size: 0.66rem;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .work-card figcaption span::after {
+    content: none;
+  }
+}
+
+/* Small-screen page chrome refinements. */
 @media (max-width: 640px) {
   .works-section {
     --mobile-text-padding: 12px;
@@ -1614,69 +1748,6 @@ button {
   .work-series + .work-series {
     margin-top: 96px;
     padding-top: 48px;
-  }
-
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(10, minmax(0, 1fr));
-    column-gap: var(--mobile-grid-gap);
-    row-gap: var(--mobile-module-gap);
-    width: 100%;
-    max-width: none;
-    margin: 0;
-    padding: 0 var(--mobile-text-padding);
-  }
-
-  .work-series .gallery > .work-card {
-    position: relative;
-    grid-column: span 5 !important;
-    grid-row: auto !important;
-    align-self: start;
-    justify-self: stretch;
-    width: auto;
-    max-width: none;
-    margin: 0 !important;
-    transform: none;
-    counter-increment: mobile-photo;
-  }
-
-  .work-card.is-visible {
-    transform: none;
-  }
-
-  .photo-button,
-  .photo-button:active {
-    display: block;
-    width: 100%;
-    max-width: none;
-    margin: 0;
-    box-shadow: none;
-    transform: none;
-  }
-
-  .photo-button img {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-width: none;
-    object-fit: contain;
-  }
-
-  .work-card figcaption {
-    display: block;
-    width: 100%;
-    margin-top: var(--mobile-caption-gap);
-    color: #888888;
-    font-family: Inter, Helvetica, Arial, sans-serif;
-    font-size: 0;
-    line-height: 1;
-    letter-spacing: 0.04em;
-  }
-
-  .work-card figcaption span::after {
-    color: #888888;
-    font-size: 12px;
-    content: counter(mobile-photo, decimal-leading-zero);
   }
 }
 
