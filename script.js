@@ -134,6 +134,25 @@ function closeMenu() {
   setMenuOpen(false);
 }
 
+function syncMenuAccessibilityForViewport() {
+  if (!menu || !menuPanel) {
+    return;
+  }
+
+  const isDesktopNav = window.matchMedia("(min-width: 769px)").matches;
+  if (isDesktopNav) {
+    menu.classList.remove("is-open", "is-closing");
+    menuPanel.setAttribute("aria-hidden", "false");
+    if (menuToggle) {
+      menuToggle.setAttribute("aria-expanded", "false");
+    }
+    return;
+  }
+
+  const isOpen = menu.classList.contains("is-open") && !menu.classList.contains("is-closing");
+  menuPanel.setAttribute("aria-hidden", isOpen ? "false" : "true");
+}
+
 function lockPageScroll() {
   if (pageScrollLocked) {
     return;
@@ -196,6 +215,8 @@ function restoreFocusWithoutScrolling(element, scrollYToRestore) {
 }
 
 if (menu && menuToggle && menuPanel) {
+  syncMenuAccessibilityForViewport();
+
   menuToggle.addEventListener("click", () => {
     const isVisiblyOpen =
       menu.classList.contains("is-open") && !menu.classList.contains("is-closing");
@@ -226,6 +247,8 @@ if (menu && menuToggle && menuPanel) {
       closeMenu();
     }
   });
+
+  window.addEventListener("resize", syncMenuAccessibilityForViewport);
 }
 
 function setLightboxPhoto(index, animate = false) {

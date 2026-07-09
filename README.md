@@ -1,4 +1,4 @@
-# kyokaketsu Photography Portfolio 
+# kyokaketsu Photography Portfolio
 
 这是一个简洁的个人摄影作品集网站，使用纯 HTML、CSS 和 JavaScript 制作，适合部署到 GitHub Pages。
 
@@ -72,6 +72,3 @@ http://localhost:8000
 7. 保存后等待 GitHub 生成网站链接。
 
 这个网站不需要后端、数据库或构建工具，上传后即可作为静态网站运行。
-
-
-<!-- deployment refresh 2026-07-06 -->

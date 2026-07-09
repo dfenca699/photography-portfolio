@@ -421,6 +421,60 @@ button {
   transform: translate3d(0, 0, 0);
 }
 
+@media (min-width: 769px) {
+  .site-header {
+    padding-top: max(18px, calc(env(safe-area-inset-top, 0px) + 16px));
+    padding-bottom: 18px;
+  }
+
+  .site-nav {
+    max-width: none;
+    min-height: 0;
+    color: var(--color-muted);
+    font-family: var(--font-main);
+    font-size: 0.82rem;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .menu-panel {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: clamp(22px, 3vw, 42px);
+    min-height: 0;
+    padding: 0;
+    overflow: visible;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    transform: none;
+    -webkit-transform: none;
+    transition: none;
+  }
+
+  .menu-panel a {
+    min-height: 0;
+    color: var(--color-muted);
+    font-family: var(--font-main);
+    font-size: 0.82rem;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .menu-panel a:hover,
+  .menu-panel a:focus-visible {
+    color: var(--color-ink);
+  }
+}
+
 @supports (-webkit-touch-callout: none) {
   .site-header {
     background: rgba(247, 246, 242, 0.9);
@@ -1604,6 +1658,11 @@ button {
   .work-series .gallery > .work-card:nth-child(4n) {
     grid-column: 3 / span 10;
     margin-top: -1vh;
+  }
+
+  .work-series .gallery > .work-card:last-child {
+    grid-column: 1 / span 12;
+    margin-top: 0;
   }
 
   .work-card.is-visible {
