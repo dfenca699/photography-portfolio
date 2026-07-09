@@ -1543,9 +1543,9 @@ button {
   }
 
   .site-header {
-    background: rgba(247, 246, 242, 0.985);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    background: rgba(247, 246, 242, 0.74);
+    -webkit-backdrop-filter: blur(18px) saturate(1.12);
+    backdrop-filter: blur(18px) saturate(1.12);
     transform: none;
     -webkit-transform: none;
     will-change: auto;
@@ -1558,9 +1558,9 @@ button {
 
   .menu-toggle,
   .menu-panel {
-    background: rgba(247, 246, 242, 0.985);
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
+    background: rgba(247, 246, 242, 0.78);
+    -webkit-backdrop-filter: blur(18px) saturate(1.12) !important;
+    backdrop-filter: blur(18px) saturate(1.12) !important;
   }
 
   .menu-panel {
@@ -1661,7 +1661,12 @@ button {
   }
 
   .work-series .gallery > .work-card:last-child {
-    grid-column: 1 / span 12;
+    grid-column: 4 / span 9;
+    margin-top: 0;
+  }
+
+  .work-series .gallery > .work-card:nth-last-child(2) {
+    grid-column: 1 / span 9;
     margin-top: 0;
   }
 
