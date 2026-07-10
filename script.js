@@ -134,25 +134,6 @@ function closeMenu() {
   setMenuOpen(false);
 }
 
-function syncMenuAccessibilityForViewport() {
-  if (!menu || !menuPanel) {
-    return;
-  }
-
-  const isDesktopNav = window.matchMedia("(min-width: 769px)").matches;
-  if (isDesktopNav) {
-    menu.classList.remove("is-open", "is-closing");
-    menuPanel.setAttribute("aria-hidden", "false");
-    if (menuToggle) {
-      menuToggle.setAttribute("aria-expanded", "false");
-    }
-    return;
-  }
-
-  const isOpen = menu.classList.contains("is-open") && !menu.classList.contains("is-closing");
-  menuPanel.setAttribute("aria-hidden", isOpen ? "false" : "true");
-}
-
 function lockPageScroll() {
   if (pageScrollLocked) {
     return;
@@ -215,8 +196,6 @@ function restoreFocusWithoutScrolling(element, scrollYToRestore) {
 }
 
 if (menu && menuToggle && menuPanel) {
-  syncMenuAccessibilityForViewport();
-
   menuToggle.addEventListener("click", () => {
     const isVisiblyOpen =
       menu.classList.contains("is-open") && !menu.classList.contains("is-closing");
@@ -247,8 +226,6 @@ if (menu && menuToggle && menuPanel) {
       closeMenu();
     }
   });
-
-  window.addEventListener("resize", syncMenuAccessibilityForViewport);
 }
 
 function setLightboxPhoto(index, animate = false) {
@@ -383,9 +360,40 @@ lightboxContent.addEventListener(
   { passive: true }
 );
 
+function keepLightboxFocus(event) {
+  const focusableElements = Array.from(
+    lightbox.querySelectorAll("button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex='-1'])")
+  ).filter((element) => {
+    const styles = window.getComputedStyle(element);
+    return styles.visibility !== "hidden" && styles.display !== "none";
+  });
+
+  if (!focusableElements.length) {
+    event.preventDefault();
+    return;
+  }
+
+  const firstElement = focusableElements[0];
+  const lastElement = focusableElements[focusableElements.length - 1];
+  const activeElement = document.activeElement;
+
+  if (
+    !lightbox.contains(activeElement) ||
+    (!event.shiftKey && activeElement === lastElement)
+  ) {
+    event.preventDefault();
+    firstElement.focus();
+  } else if (event.shiftKey && activeElement === firstElement) {
+    event.preventDefault();
+    lastElement.focus();
+  }
+}
+
 document.addEventListener("keydown", (event) => {
   if (lightbox.classList.contains("is-open")) {
-    if (event.key === "Escape") {
+    if (event.key === "Tab") {
+      keepLightboxFocus(event);
+    } else if (event.key === "Escape") {
       closeLightbox();
     } else if (event.key === "ArrowLeft") {
       event.preventDefault();
