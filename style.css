@@ -223,16 +223,27 @@ main { margin-left: var(--sidebar-width); min-width: 0; }
   html { scroll-padding-top: 78px; }
   .site-sidebar { position: sticky; inset: 0 auto auto 0; display: flex; flex-direction: row; align-items: center; width: 100%; height: 68px; padding: 0 20px; border-bottom: 1px solid rgba(229,227,221,.65); }
   .brand { position: relative; z-index: 32; }
-  .menu-toggle { position: relative; z-index: 32; display: block; margin-left: auto; padding: 8px 0 8px 18px; border: 0; background: transparent; color: var(--ink); font-family: var(--font-meta); font-size: .68rem; letter-spacing: .05em; cursor: pointer; }
-  .label-close { display: none; } .site-sidebar.is-open .label-menu { display: none; } .site-sidebar.is-open .label-close { display: inline; }
-  .menu-panel { position: fixed; z-index: 30; inset: 0; display: flex; align-items: flex-start; gap: 19px; margin: 0; padding: 118px 28px 30px; background: var(--paper); opacity: 0; pointer-events: none; transform: translateY(-8px); transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease; visibility: hidden; }
-  .site-sidebar.is-open .menu-panel { visibility: visible; opacity: 1; pointer-events: auto; transform: translateY(0); }
-  .menu-panel a { color: var(--ink); font-family: var(--font-display); font-size: 1.5rem; font-weight: 300; letter-spacing: -.05em; }
+  .menu-toggle { position: relative; z-index: 32; display: block; min-width: 54px; margin-left: auto; padding: 8px 0 8px 18px; border: 0; background: transparent; color: var(--ink); font-family: var(--font-meta); font-size: .68rem; letter-spacing: .05em; text-align: right; cursor: pointer; }
+  .menu-toggle span { display: inline-block; transition: opacity 160ms ease, transform 220ms cubic-bezier(.16, 1, .3, 1); }
+  .label-close { position: absolute; right: 0; opacity: 0; transform: translateY(4px); }
+  .site-sidebar.is-open .label-menu { opacity: 0; transform: translateY(-4px); }
+  .site-sidebar.is-open .label-close { opacity: 1; transform: translateY(0); }
+  .menu-panel { position: fixed; z-index: 30; inset: 68px 0 0; display: flex; align-items: flex-start; gap: 19px; margin: 0; padding: 50px 28px calc(30px + env(safe-area-inset-bottom)); background: var(--paper); clip-path: inset(0 0 100% 0); pointer-events: none; visibility: hidden; will-change: clip-path; transition: clip-path 480ms cubic-bezier(.76, 0, .24, 1), visibility 0s linear 480ms; }
+  .site-sidebar.is-open .menu-panel { visibility: visible; clip-path: inset(0 0 0 0); pointer-events: auto; transition: clip-path 480ms cubic-bezier(.76, 0, .24, 1), visibility 0s linear 0s; }
+  .menu-panel a { color: var(--ink); font-family: var(--font-display); font-size: 1.5rem; font-weight: 300; letter-spacing: -.05em; opacity: 0; transform: translateY(-14px); transition: opacity 180ms ease, transform 360ms cubic-bezier(.16, 1, .3, 1); }
+  .site-sidebar.is-open .menu-panel a { opacity: 1; transform: translateY(0); }
+  .site-sidebar.is-open .menu-panel a:nth-child(1) { transition-delay: 110ms; }
+  .site-sidebar.is-open .menu-panel a:nth-child(2) { transition-delay: 145ms; }
+  .site-sidebar.is-open .menu-panel a:nth-child(3) { transition-delay: 180ms; }
+  .site-sidebar.is-open .menu-panel a:nth-child(4) { transition-delay: 215ms; }
+  .site-sidebar.is-open .menu-panel a:nth-child(5) { transition-delay: 250ms; }
+  .site-sidebar.is-open .menu-panel a:nth-child(6) { transition-delay: 285ms; }
   .menu-panel .nav-sub { margin-left: 18px; color: var(--muted); font-size: 1rem; letter-spacing: -.035em; }
   .menu-panel .nav-instagram { margin-top: 18px; font-family: var(--font-meta); font-size: .7rem; letter-spacing: .04em; }
   .menu-panel a.is-current::before { display: none; }
-  .sidebar-meta { position: fixed; z-index: 31; bottom: 24px; left: 28px; margin: 0; opacity: 0; transition: opacity 120ms ease; pointer-events: none; }
-  .site-sidebar.is-open .sidebar-meta { opacity: 1; }
+  .menu-meta { display: block; margin: auto 0 0; padding-top: 24px; color: var(--muted); font-family: var(--font-meta); font-size: .7rem; font-weight: 300; letter-spacing: .02em; line-height: 1.8; opacity: 0; transform: translateY(8px); transition: opacity 180ms ease, transform 300ms cubic-bezier(.16, 1, .3, 1); }
+  .site-sidebar.is-open .menu-meta { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+  .sidebar-meta { display: none; }
   main { margin-left: 0; }
   .hero { display: block; min-height: auto; padding: 92px 20px 118px; }
   .hero-copy { margin-bottom: 70px; }
