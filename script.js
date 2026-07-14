@@ -28,6 +28,9 @@ function setMenuOpen(isOpen) {
   menu.classList.toggle("is-open", isOpen);
   menuToggle.setAttribute("aria-expanded", String(isOpen));
   menuPanel.setAttribute("aria-hidden", String(!isOpen));
+  if ("inert" in menuPanel) {
+    menuPanel.inert = window.matchMedia("(max-width: 768px)").matches && !isOpen;
+  }
 }
 
 function closeMenu() {
@@ -73,6 +76,8 @@ function recoverScrollablePage() {
   }
   if (window.matchMedia("(min-width: 769px)").matches) {
     closeMenu();
+  } else if (menu && menuPanel) {
+    setMenuOpen(menu.classList.contains("is-open"));
   }
 }
 
