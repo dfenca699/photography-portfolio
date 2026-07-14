@@ -18,6 +18,8 @@ let lockedScrollY = 0;
 let pageScrollLocked = false;
 let touchStartX = null;
 let touchStartY = null;
+let menuCloseTimer = null;
+const menuCurtainDuration = 520;
 
 function reducedMotion() {
   return motionQuery.matches;
@@ -25,11 +27,28 @@ function reducedMotion() {
 
 function setMenuOpen(isOpen) {
   if (!menu || !menuToggle || !menuPanel) return;
+  const wasOpen = menu.classList.contains("is-open");
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const shouldAnimateClosing = isMobile && !isOpen && wasOpen && !reducedMotion();
+
+  window.clearTimeout(menuCloseTimer);
   menu.classList.toggle("is-open", isOpen);
+  menu.classList.toggle("is-closing", shouldAnimateClosing);
   menuToggle.setAttribute("aria-expanded", String(isOpen));
   menuPanel.setAttribute("aria-hidden", String(!isOpen));
+
   if ("inert" in menuPanel) {
-    menuPanel.inert = window.matchMedia("(max-width: 768px)").matches && !isOpen;
+    menuPanel.inert = isMobile && !isOpen && !shouldAnimateClosing;
+  }
+
+  if (shouldAnimateClosing) {
+    menuCloseTimer = window.setTimeout(() => {
+      if (menu.classList.contains("is-open")) return;
+      menu.classList.remove("is-closing");
+      if ("inert" in menuPanel && window.matchMedia("(max-width: 768px)").matches) {
+        menuPanel.inert = true;
+      }
+    }, menuCurtainDuration);
   }
 }
 
@@ -76,8 +95,6 @@ function recoverScrollablePage() {
   }
   if (window.matchMedia("(min-width: 769px)").matches) {
     closeMenu();
-  } else if (menu && menuPanel) {
-    setMenuOpen(menu.classList.contains("is-open"));
   }
 }
 
