@@ -1,0 +1,10 @@
+{
+  "name": "kyokaketsu — Photography",
+  "short_name": "kyokaketsu",
+  "id": "./",
+  "start_url": "./?source=standalone",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f9f9f7",
+  "theme_color": "#f9f9f7"
+}
