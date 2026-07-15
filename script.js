@@ -11,11 +11,13 @@ const menuToggle = document.querySelector(".menu-toggle");
 const menuPanel = document.querySelector("#primary-navigation");
 const navItems = Array.from(document.querySelectorAll(".menu-panel a[href^='#']"));
 const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+const mobileMenuQuery = window.matchMedia("(max-width: 768px), (max-width: 932px) and (max-height: 520px) and (pointer: coarse)");
 
 let activePhotoIndex = -1;
 let lastFocusedElement = null;
 let lockedScrollY = 0;
 let pageScrollLocked = false;
+const scrollLockReasons = new Set();
 let touchStartX = null;
 let touchStartY = null;
 let menuCloseTimer = null;
@@ -28,13 +30,14 @@ function reducedMotion() {
 function setMenuOpen(isOpen) {
   if (!menu || !menuToggle || !menuPanel) return;
   const wasOpen = menu.classList.contains("is-open");
-  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const isMobile = mobileMenuQuery.matches;
   const shouldAnimateClosing = isMobile && !isOpen && wasOpen && !reducedMotion();
 
   window.clearTimeout(menuCloseTimer);
   menu.classList.toggle("is-open", isOpen);
   menu.classList.toggle("is-closing", shouldAnimateClosing);
   menuToggle.setAttribute("aria-expanded", String(isOpen));
+  menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
   menuPanel.setAttribute("aria-hidden", String(!isOpen));
 
   if ("inert" in menuPanel) {
@@ -45,10 +48,17 @@ function setMenuOpen(isOpen) {
     menuCloseTimer = window.setTimeout(() => {
       if (menu.classList.contains("is-open")) return;
       menu.classList.remove("is-closing");
-      if ("inert" in menuPanel && window.matchMedia("(max-width: 768px)").matches) {
+      if ("inert" in menuPanel && mobileMenuQuery.matches) {
         menuPanel.inert = true;
       }
+      unlockPageScroll("menu");
     }, menuCurtainDuration);
+  } else if (!isOpen) {
+    unlockPageScroll("menu");
+  }
+
+  if (isMobile && isOpen) {
+    lockPageScroll("menu");
   }
 }
 
@@ -56,15 +66,16 @@ function closeMenu() {
   setMenuOpen(false);
 }
 
-if (window.matchMedia("(max-width: 768px)").matches) {
+if (mobileMenuQuery.matches) {
   setMenuOpen(false);
 }
 
-function lockPageScroll() {
+function lockPageScroll(reason) {
+  scrollLockReasons.add(reason);
   if (pageScrollLocked) return;
   lockedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
   pageScrollLocked = true;
-  document.body.classList.add("is-lightbox-open");
+  document.body.classList.add("is-scroll-locked");
   document.body.style.position = "fixed";
   document.body.style.top = `-${lockedScrollY}px`;
   document.body.style.left = "0";
@@ -72,29 +83,47 @@ function lockPageScroll() {
   document.body.style.width = "100%";
 }
 
-function unlockPageScroll() {
-  if (!pageScrollLocked && !document.body.classList.contains("is-lightbox-open")) {
+function restoreScrollPosition(scrollY) {
+  const root = document.documentElement;
+  const previousScrollBehavior = root.style.scrollBehavior;
+  root.style.scrollBehavior = "auto";
+  window.scrollTo(0, scrollY);
+  window.requestAnimationFrame(() => {
+    window.scrollTo(0, scrollY);
+    window.requestAnimationFrame(() => {
+      if (previousScrollBehavior) root.style.scrollBehavior = previousScrollBehavior;
+      else root.style.removeProperty("scroll-behavior");
+    });
+  });
+}
+
+function unlockPageScroll(reason) {
+  scrollLockReasons.delete(reason);
+  if (scrollLockReasons.size) return lockedScrollY;
+  if (!pageScrollLocked && !document.body.classList.contains("is-scroll-locked")) {
     return window.scrollY || document.documentElement.scrollTop || 0;
   }
   const restoreY = lockedScrollY;
   pageScrollLocked = false;
-  document.body.classList.remove("is-lightbox-open");
+  document.body.classList.remove("is-scroll-locked");
   document.body.style.removeProperty("position");
   document.body.style.removeProperty("top");
   document.body.style.removeProperty("left");
   document.body.style.removeProperty("right");
   document.body.style.removeProperty("width");
-  window.scrollTo(0, restoreY);
-  window.requestAnimationFrame(() => window.scrollTo(0, restoreY));
+  restoreScrollPosition(restoreY);
   return restoreY;
 }
 
 function recoverScrollablePage() {
   if (!lightbox || !lightbox.classList.contains("is-open")) {
-    unlockPageScroll();
+    unlockPageScroll("lightbox");
   }
-  if (window.matchMedia("(min-width: 769px)").matches) {
+  if (!mobileMenuQuery.matches) {
     closeMenu();
+    unlockPageScroll("menu");
+  } else if (!menu?.classList.contains("is-open") && !menu?.classList.contains("is-closing")) {
+    unlockPageScroll("menu");
   }
 }
 
@@ -117,7 +146,7 @@ function openLightbox(button) {
   setLightboxPhoto(photoButtons.indexOf(button));
   lightbox.classList.add("is-open");
   lightbox.setAttribute("aria-hidden", "false");
-  lockPageScroll();
+  lockPageScroll("lightbox");
   closeButton.focus({ preventScroll: true });
 }
 
@@ -125,12 +154,12 @@ function closeLightbox() {
   if (!lightbox || !lightbox.classList.contains("is-open")) return;
   lightbox.classList.remove("is-open");
   lightbox.setAttribute("aria-hidden", "true");
-  const restoreY = unlockPageScroll();
+  const restoreY = unlockPageScroll("lightbox");
   window.setTimeout(() => {
     if (!lightbox.classList.contains("is-open")) lightboxImage.src = "";
     if (lastFocusedElement) {
       try { lastFocusedElement.focus({ preventScroll: true }); }
-      catch { lastFocusedElement.focus(); window.scrollTo(0, restoreY); }
+    catch { lastFocusedElement.focus(); restoreScrollPosition(restoreY); }
     }
   }, reducedMotion() ? 0 : 180);
 }
@@ -149,9 +178,14 @@ navItems.forEach((item) => {
     const target = document.querySelector(item.getAttribute("href"));
     if (!target) return;
     event.preventDefault();
+    const waitForCurtain = mobileMenuQuery.matches && menu?.classList.contains("is-open") && !reducedMotion();
     closeMenu();
-    target.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth", block: "start" });
-    history.replaceState(null, "", item.getAttribute("href"));
+    const moveToTarget = () => {
+      target.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth", block: "start" });
+      history.replaceState(null, "", item.getAttribute("href"));
+    };
+    if (waitForCurtain) window.setTimeout(moveToTarget, menuCurtainDuration + 20);
+    else moveToTarget();
   });
 });
 
