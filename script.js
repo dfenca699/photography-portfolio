@@ -78,9 +78,11 @@ function lockPageScroll(reason) {
   document.body.classList.add("is-scroll-locked");
   document.body.style.position = "fixed";
   document.body.style.top = `-${lockedScrollY}px`;
+  document.body.style.bottom = "0";
   document.body.style.left = "0";
   document.body.style.right = "0";
   document.body.style.width = "100%";
+  document.body.style.minHeight = "100dvh";
 }
 
 function restoreScrollPosition(scrollY) {
@@ -108,9 +110,11 @@ function unlockPageScroll(reason) {
   document.body.classList.remove("is-scroll-locked");
   document.body.style.removeProperty("position");
   document.body.style.removeProperty("top");
+  document.body.style.removeProperty("bottom");
   document.body.style.removeProperty("left");
   document.body.style.removeProperty("right");
   document.body.style.removeProperty("width");
+  document.body.style.removeProperty("min-height");
   restoreScrollPosition(restoreY);
   return restoreY;
 }
