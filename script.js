@@ -9,6 +9,7 @@ const photoButtons = Array.from(document.querySelectorAll(".photo-button"));
 const menu = document.querySelector("[data-menu]");
 const menuToggle = document.querySelector(".menu-toggle");
 const menuPanel = document.querySelector("#primary-navigation");
+const themeColorMeta = document.querySelector("meta[name='theme-color']");
 const navItems = Array.from(document.querySelectorAll(".menu-panel a[href^='#']"));
 const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const mobileMenuQuery = window.matchMedia("(max-width: 768px), (max-width: 932px) and (max-height: 520px) and (pointer: coarse)");
@@ -22,9 +23,15 @@ let touchStartX = null;
 let touchStartY = null;
 let menuCloseTimer = null;
 const menuCurtainDuration = 520;
+const defaultThemeColor = themeColorMeta?.getAttribute("content") || "#f9f9f7";
+const menuThemeColor = "#f3f3f0";
 
 function reducedMotion() {
   return motionQuery.matches;
+}
+
+function setMenuChromeTint(isActive) {
+  themeColorMeta?.setAttribute("content", isActive ? menuThemeColor : defaultThemeColor);
 }
 
 function setMenuOpen(isOpen) {
@@ -38,6 +45,7 @@ function setMenuOpen(isOpen) {
   menu.classList.toggle("is-closing", shouldAnimateClosing);
   document.documentElement.classList.toggle("is-menu-open", isOpen);
   document.documentElement.classList.toggle("is-menu-closing", shouldAnimateClosing);
+  setMenuChromeTint(isOpen || shouldAnimateClosing);
   menuToggle.setAttribute("aria-expanded", String(isOpen));
   menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
   menuPanel.setAttribute("aria-hidden", String(!isOpen));
@@ -51,6 +59,7 @@ function setMenuOpen(isOpen) {
       if (menu.classList.contains("is-open")) return;
       menu.classList.remove("is-closing");
       document.documentElement.classList.remove("is-menu-closing");
+      setMenuChromeTint(false);
       if ("inert" in menuPanel && mobileMenuQuery.matches) {
         menuPanel.inert = true;
       }
