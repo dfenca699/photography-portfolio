@@ -75,14 +75,13 @@ function lockPageScroll(reason) {
   if (pageScrollLocked) return;
   lockedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
   pageScrollLocked = true;
+  document.documentElement.classList.add("is-scroll-locked");
   document.body.classList.add("is-scroll-locked");
   document.body.style.position = "fixed";
   document.body.style.top = `-${lockedScrollY}px`;
-  document.body.style.bottom = "0";
   document.body.style.left = "0";
   document.body.style.right = "0";
   document.body.style.width = "100%";
-  document.body.style.minHeight = "100dvh";
 }
 
 function restoreScrollPosition(scrollY) {
@@ -102,11 +101,12 @@ function restoreScrollPosition(scrollY) {
 function unlockPageScroll(reason) {
   scrollLockReasons.delete(reason);
   if (scrollLockReasons.size) return lockedScrollY;
-  if (!pageScrollLocked && !document.body.classList.contains("is-scroll-locked")) {
+  if (!pageScrollLocked && !document.body.classList.contains("is-scroll-locked") && !document.documentElement.classList.contains("is-scroll-locked")) {
     return window.scrollY || document.documentElement.scrollTop || 0;
   }
   const restoreY = lockedScrollY;
   pageScrollLocked = false;
+  document.documentElement.classList.remove("is-scroll-locked");
   document.body.classList.remove("is-scroll-locked");
   document.body.style.removeProperty("position");
   document.body.style.removeProperty("top");
