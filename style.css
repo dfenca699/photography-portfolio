@@ -243,12 +243,12 @@ main { margin-left: var(--sidebar-width); min-width: 0; }
   }
   .site-sidebar::before { position: absolute; z-index: 0; inset: 0; border-bottom: 1px solid rgba(229, 227, 221, .7); background: rgba(249, 249, 247, .68); -webkit-backdrop-filter: blur(18px) saturate(125%); backdrop-filter: blur(18px) saturate(125%); content: ""; pointer-events: none; transition: background-color 260ms ease, border-color 260ms ease; }
   .site-sidebar.is-open::before,
-  .site-sidebar.is-closing::before { border-bottom-color: transparent; background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .site-sidebar.is-closing::before { border-bottom-color: transparent; }
   .menu-backdrop {
     position: fixed;
     z-index: 29;
     display: block;
-    top: 0;
+    top: calc(68px + env(safe-area-inset-top));
     right: 0;
     bottom: -180px;
     left: 0;
