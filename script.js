@@ -36,6 +36,8 @@ function setMenuOpen(isOpen) {
   window.clearTimeout(menuCloseTimer);
   menu.classList.toggle("is-open", isOpen);
   menu.classList.toggle("is-closing", shouldAnimateClosing);
+  document.documentElement.classList.toggle("is-menu-open", isOpen);
+  document.documentElement.classList.toggle("is-menu-closing", shouldAnimateClosing);
   menuToggle.setAttribute("aria-expanded", String(isOpen));
   menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
   menuPanel.setAttribute("aria-hidden", String(!isOpen));
@@ -48,6 +50,7 @@ function setMenuOpen(isOpen) {
     menuCloseTimer = window.setTimeout(() => {
       if (menu.classList.contains("is-open")) return;
       menu.classList.remove("is-closing");
+      document.documentElement.classList.remove("is-menu-closing");
       if ("inert" in menuPanel && mobileMenuQuery.matches) {
         menuPanel.inert = true;
       }
@@ -55,10 +58,6 @@ function setMenuOpen(isOpen) {
     }, menuCurtainDuration);
   } else if (!isOpen) {
     unlockPageScroll("menu");
-  }
-
-  if (isMobile && isOpen) {
-    lockPageScroll("menu");
   }
 }
 
