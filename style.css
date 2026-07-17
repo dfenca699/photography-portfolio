@@ -44,6 +44,7 @@ img { display: block; max-width: 100%; }
 .menu-panel .nav-sub { margin-left: 0; font-size: 1rem; }
 .menu-panel .nav-instagram { margin-top: 18px; }
 .sidebar-meta { margin: auto 0 0; color: var(--muted); font-family: var(--font-meta); font-size: .82rem; font-weight: 300; letter-spacing: .02em; line-height: 1.8; }
+.menu-meta { display: none; }
 
 main { margin-left: var(--sidebar-width); min-width: 0; }
 .hero {
