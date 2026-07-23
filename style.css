@@ -1,9 +1,9 @@
 :root {
-  --paper: #f6f4ee;
+  --paper: #f5f2ea;
   --ink: #2a2620;
   --muted: #857f72;
-  --line: #e3ddcf;
-  --menu-toolbar-tint: #f0ede4;
+  --line: #e2dbc9;
+  --menu-toolbar-tint: #efebe1;
   --font-display: Georgia, "Gelasio", "Times New Roman", serif;
   --font-brand: "Lexend Deca", Arial, sans-serif;
   --font-body: "Manrope", Arial, sans-serif;
@@ -243,7 +243,7 @@ main { margin-left: var(--sidebar-width); min-width: 0; }
     background: transparent;
     border-bottom: 0;
   }
-  .site-sidebar::before { position: absolute; z-index: 0; inset: 0; border-bottom: 1px solid rgba(227, 221, 207, .7); background: transparent; content: ""; pointer-events: none; transition: border-color 260ms ease; }
+  .site-sidebar::before { position: absolute; z-index: 0; inset: 0; border-bottom: 1px solid rgba(226, 219, 201, .7); background: transparent; content: ""; pointer-events: none; transition: border-color 260ms ease; }
   .site-sidebar.is-open::before,
   .site-sidebar.is-closing::before { border-bottom-color: transparent; }
   .menu-backdrop {
@@ -255,7 +255,7 @@ main { margin-left: var(--sidebar-width); min-width: 0; }
     bottom: -180px;
     left: 0;
     visibility: visible;
-    background: rgba(246, 244, 238, .72);
+    background: rgba(245, 242, 234, .72);
     -webkit-backdrop-filter: blur(18px) saturate(125%);
     backdrop-filter: blur(18px) saturate(125%);
     -webkit-clip-path: inset(0 0 calc(100% - 68px - env(safe-area-inset-top)) 0);
@@ -275,7 +275,7 @@ main { margin-left: var(--sidebar-width); min-width: 0; }
     left: 0;
     height: calc(clamp(190px, 24svh, 280px) + 180px + env(safe-area-inset-bottom));
     visibility: hidden;
-    background: linear-gradient(to bottom, rgba(240, 237, 228, 0) 0%, rgba(240, 237, 228, .16) 12%, rgba(240, 237, 228, .7) 26%, var(--menu-toolbar-tint) 38%, var(--menu-toolbar-tint) 100%);
+    background: linear-gradient(to bottom, rgba(239, 235, 225, 0) 0%, rgba(239, 235, 225, .16) 12%, rgba(239, 235, 225, .7) 26%, var(--menu-toolbar-tint) 38%, var(--menu-toolbar-tint) 100%);
     opacity: 0;
     pointer-events: none;
     transition: opacity 220ms ease;
