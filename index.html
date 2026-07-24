@@ -22,7 +22,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Gelasio:wght@400&family=IBM+Plex+Mono:wght@200;300&family=Lexend+Deca:wght@400&family=Manrope:wght@200;300&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=paper-r1a-plus-20260724" />
+    <link rel="stylesheet" href="style.css?v=grouped-menu-20260724" />
   </head>
   <body>
     <div class="menu-backdrop" aria-hidden="true"></div>
@@ -34,11 +34,17 @@
           <span class="label-menu">Menu</span><span class="label-close" aria-hidden="true">Close</span>
         </button>
         <nav class="menu-panel" id="primary-navigation" aria-label="Primary navigation" aria-hidden="false">
-          <a href="#works">Works</a>
-          <a class="nav-sub" href="#color">Color</a>
-          <a class="nav-sub" href="#monochrome">Monochrome</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+          <div class="nav-work-group">
+            <a href="#works">Works</a>
+            <div class="nav-children">
+              <a class="nav-sub" href="#color">Color</a>
+              <a class="nav-sub" href="#monochrome">Monochrome</a>
+            </div>
+          </div>
+          <div class="nav-primary-group">
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+          </div>
           <a class="nav-instagram" href="https://www.instagram.com/kyokaketsu/" target="_blank" rel="noreferrer">Instagram <span class="external-arrow" aria-hidden="true">↗︎</span></a>
           <p class="menu-meta">© 2026<br />Tokyo / Japan</p>
         </nav>

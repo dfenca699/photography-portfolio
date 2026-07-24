@@ -42,6 +42,9 @@ img { display: block; max-width: 100%; }
 .menu-panel a { position: relative; color: var(--muted); font-family: var(--font-meta); font-size: 1rem; font-weight: 300; letter-spacing: .02em; line-height: 1.25; text-decoration: none; transition: color 180ms ease; }
 .menu-panel a:hover, .menu-panel a:focus-visible, .menu-panel a.is-current { color: var(--ink); }
 .menu-panel a.is-current::before { position: absolute; top: .45em; left: -13px; width: 4px; height: 4px; border-radius: 50%; background: currentColor; content: ""; }
+.nav-work-group,
+.nav-primary-group,
+.nav-children { display: contents; }
 .menu-panel .nav-sub { margin-left: 0; font-size: 1rem; }
 .menu-panel .nav-instagram { margin-top: 18px; }
 .sidebar-meta { margin: auto 0 0; color: var(--muted); font-family: var(--font-meta); font-size: .82rem; font-weight: 300; letter-spacing: .02em; line-height: 1.8; }
@@ -302,7 +305,7 @@ main { margin-left: var(--sidebar-width); min-width: 0; }
     left: 0;
     display: flex;
     align-items: flex-start;
-    gap: 19px;
+    gap: 0;
     width: 100%;
     height: 100vh;
     height: 100svh;
@@ -331,14 +334,37 @@ main { margin-left: var(--sidebar-width); min-width: 0; }
   .site-sidebar.is-closing .menu-panel { -webkit-clip-path: inset(0 0 100% 0); clip-path: inset(0 0 100% 0); opacity: 1; transform: translate3d(0, 0, 0); pointer-events: none; }
   .menu-panel a { color: var(--ink); font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; letter-spacing: -.01em; opacity: 0; transform: translateY(-14px); will-change: opacity, transform; transition: opacity 180ms ease, transform 360ms cubic-bezier(.16, 1, .3, 1); }
   .site-sidebar.is-open .menu-panel a { opacity: 1; transform: translateY(0); }
-  .site-sidebar.is-open .menu-panel a:nth-child(1) { transition-delay: 110ms; }
-  .site-sidebar.is-open .menu-panel a:nth-child(2) { transition-delay: 145ms; }
-  .site-sidebar.is-open .menu-panel a:nth-child(3) { transition-delay: 180ms; }
-  .site-sidebar.is-open .menu-panel a:nth-child(4) { transition-delay: 215ms; }
-  .site-sidebar.is-open .menu-panel a:nth-child(5) { transition-delay: 250ms; }
-  .site-sidebar.is-open .menu-panel a:nth-child(6) { transition-delay: 285ms; }
-  .menu-panel .nav-sub { margin-left: 18px; color: var(--muted); font-size: 1rem; letter-spacing: -.035em; }
-  .menu-panel .nav-instagram { margin-top: 18px; font-family: var(--font-meta); font-size: .7rem; letter-spacing: .04em; }
+  .site-sidebar.is-open .nav-work-group > a { transition-delay: 110ms; }
+  .site-sidebar.is-open .nav-children a:nth-child(1) { transition-delay: 145ms; }
+  .site-sidebar.is-open .nav-children a:nth-child(2) { transition-delay: 180ms; }
+  .site-sidebar.is-open .nav-primary-group a:nth-child(1) { transition-delay: 215ms; }
+  .site-sidebar.is-open .nav-primary-group a:nth-child(2) { transition-delay: 250ms; }
+  .site-sidebar.is-open .nav-instagram { transition-delay: 285ms; }
+  .menu-panel .nav-work-group {
+    display: block;
+    width: min(218px, 100%);
+    margin-bottom: 29px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid rgba(38, 34, 28, .16);
+  }
+  .menu-panel .nav-children {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 14px;
+    padding-left: 18px;
+  }
+  .menu-panel .nav-sub { margin-left: 0; color: var(--muted); font-size: .88rem; line-height: 1.25; letter-spacing: -.035em; opacity: 0; }
+  .site-sidebar.is-open .menu-panel .nav-sub { opacity: .62; }
+  .menu-panel .nav-primary-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .menu-panel .nav-instagram { margin-top: 0; font-family: var(--font-meta); font-size: .75rem; letter-spacing: .04em; }
   .menu-panel a.is-current::before { display: none; }
   .menu-meta { display: block; margin: auto 0 0; padding-top: 24px; color: var(--muted); font-family: var(--font-meta); font-size: .7rem; font-weight: 300; letter-spacing: .02em; line-height: 1.8; opacity: 0; transform: translateY(8px); will-change: opacity, transform; transition: opacity 180ms ease, transform 300ms cubic-bezier(.16, 1, .3, 1); }
   .site-sidebar.is-open .menu-meta { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
